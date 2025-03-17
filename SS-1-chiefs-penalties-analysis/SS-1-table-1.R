@@ -1,12 +1,9 @@
 # load packages
 library(tidyverse)
-library(dplyr)
-library(ggplot2)
 library(nflfastR)
 library(nflplotR)
 library(nflreadr)
 library(gt)
-library(webshot2)
 
 # load data
 nfldata2 = load_pbp(2018:2024)
@@ -39,7 +36,6 @@ chiefsgr = chiefsgr %>%
   relocate(diff_yds, .after = nfl_avg_y) %>%
   print(n = Inf)
 
-
 # create table
 # use md() to add bold with '**' and italics with '*'
 tblchiefsgr = gt(chiefsgr) %>%
@@ -51,4 +47,4 @@ tblchiefsgr = gt(chiefsgr) %>%
   gt_nfl_wordmarks(locations = cells_column_spanners("KC"))
 
 # save table
-tblchiefsgr %>%gtsave("SubSt1.2 - gt_pens.png")
+tblchiefsgr %>% gtsave("SubSt1.2 - gt_pens.png")
