@@ -1,11 +1,9 @@
 # load packages
 library(tidyverse)
-library(dplyr)
 library(nflfastR)
 library(nflplotR)
 library(nflreadr)
 library(gt)
-library(webshot2)
 
 # load data
 nfldata2 = load_pbp(2018:2024)
