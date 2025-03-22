@@ -1,10 +1,10 @@
 # load packages
-library(tidyverse)
+library(tidyverse)      # data wrangling
 library(nflfastR)
 library(nflplotR)
 library(nflreadr)
 
-# load data
+# load 2024 NFL data
 nfldata = load_teams(2024)
 
 # create tibble for all time super bowl win leaders
@@ -14,13 +14,14 @@ sbteams = nfldata %>%
   print(n = Inf)
 
 # add sb wins column
+# note the order in which teams are stored, since this column is added manually
 sbteams$sbwins = c(5, 4, 4, 6, 4, 6, 5)
 
-# create plot 1
-sbwinplot = ggplot(data = sbteams, aes(x = reorder(team_abbr, -sbwins), y = sbwins)) +
+# create plot 1 - all time super bowl wins by team
+sbwinplot = ggplot(data = sbteams, aes(x = reorder(team_abbr, -sbwins), y = sbwins)) +    # use reorder() to sort by greatest value on y axis
   geom_col(aes(fill = team_abbr, color = team_abbr), linewidth = 1.25) +
-  scale_fill_nfl(type = "primary") +
-  scale_color_nfl(type = "secondary") +
+  scale_fill_nfl(type = "primary") +        # color that fills in the bars
+  scale_color_nfl(type = "secondary") +     # color that fills the border of bars
   geom_text(label = sbteams$sbwins,
             position = position_stack(vjust = 0.85),
             color = sbteams$team_color2, fontface = "bold.italic", size = 12) +
