@@ -1,13 +1,15 @@
 # load packages
-library(tidyverse)
+library(tidyverse)      # data wrangling
 library(nflfastR)
 library(nflplotR)
 library(nflreadr)
 
-# load data
+# load 2024 NFL data
 nfldata = load_pbp(2024)
 
-# filter data
+# filter data to call only rushing plays from Philly and KC
+# includes regular and postseason with 'week' filter
+# excludes qb kneels and sacks
 sbeparush = nfldata %>%
   filter(week < 22,
          qb_kneel == 0,
@@ -15,11 +17,11 @@ sbeparush = nfldata %>%
          posteam == "PHI" | posteam == "KC",
          !is.na(epa),
          !is.na(rusher_player_id)) %>%
-  group_by(rusher_player_id, rusher_player_name, posteam) %>%
+  group_by(rusher_player_id, rusher_player_name, posteam) %>%   # group by player and include team
   summarize(att = n(),
             epaper = sum(epa)/sum(att),
             .groups = "drop") %>%
-  filter(att >= 50) %>%
+  filter(att >= 50) %>%       # include players with at least 50 carries this season 
   print(n = Inf)
 
 # plot data
@@ -49,6 +51,6 @@ eparushplot2 = ggplot(data = sbeparush, aes(x = epaper,
 # view plot
 eparushplot2
 
-# save plot
+# save plot to device's local files
 ggsave("SubSt2.8 - epa_per_rush.png",
        width = 10.5, height = 7.5, dpi = "retina")
