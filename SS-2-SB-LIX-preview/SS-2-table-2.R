@@ -7,7 +7,8 @@ library(gt)
 library(data.table)
 library(gtExtras)
 
-# load data
+# load 2024 NFL data
+# separately load data dating back to 2018 to calculate career playoff stats
 nfldata = load_pbp(2024)
 nfldata4 = load_pbp(2018:2024)
 
@@ -68,7 +69,10 @@ sbqbdata0 = nfldata %>%
   summarize(totyds_reg = sum(passing_yards)) %>%
   print(n = Inf)
 
+# add column for regular season games played
 sbqbdata0$gp_reg = c(16, 15)
+
+# add column for passing yards per regular season game
 sbqbdata0$avgyds_totreg = sbqbdata0$totyds_reg/sbqbdata0$gp_reg
 
 # remove passer name, then view updated tibble
@@ -120,5 +124,6 @@ sbqbtbl1 = gt(sbqbdata3) %>%
 # view table
 sbqbtbl1
 
-# save table
-sbqbtbl1 %>%gtsave("SubSt2.4 - gt_sb_passyd.png")
+# save table to device's local files
+sbqbtbl1 %>%
+  gtsave("SubSt2.4 - gt_sb_passyd.png")
