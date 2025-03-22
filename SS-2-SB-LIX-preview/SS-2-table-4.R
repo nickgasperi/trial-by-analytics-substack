@@ -7,10 +7,10 @@ library(gt)
 library(data.table)
 library(gtExtras)
 
-# load data
+# load 2024 NFL data
 nfldata = load_pbp(2024)
 
-# filter data
+# filter data to include touchdowns scored by the listed players so far this season
 sbtdsdata = nfldata %>%
   filter(week < 22,
          !is.na(touchdown),
@@ -72,6 +72,7 @@ sbtdsplot1 = gt(sbtdsdata) %>%
 # view table
 sbtdsplot1
 
-# save table
+# save table to device's local files
 # use 'expand' to prevent sides of table from being cut out of .png export
-sbtdsplot1 %>% gtsave("SubSt2.6 - gt_sb_td_odds.png", expand = 12)
+sbtdsplot1 %>%
+  gtsave("SubSt2.6 - gt_sb_td_odds.png", expand = 12)
