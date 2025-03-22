@@ -38,7 +38,7 @@ sbwinplot = ggplot(data = sbteams, aes(x = reorder(team_abbr, -sbwins), y = sbwi
 # view plot 1
 sbwinplot
 
-# save plot 1
+# save plot 1 to device's local files
 ggsave("SubSt2.1 - all_time_sb.png",
        width = 10.5, height = 7, dpi = "retina")
 
@@ -74,6 +74,6 @@ sbwin21cplot = ggplot(data = sbteams21c, aes(x = reorder(team_abbr, -sbwins), y 
 # view plot 2
 sbwin21cplot
 
-# save plot 2
+# save plot 2 to device's local files
 ggsave("SubSt2.2 - 21st_cen_sb.png",
        width = 10.5, height = 7, dpi = "retina")
