@@ -1,13 +1,15 @@
 # load packages
-library(tidyverse)
+library(tidyverse)      # data wrangling
 library(nflfastR)
 library(nflplotR)
 library(nflreadr)
 
-# load data
+# load 2024 NFL data
 nfldata = load_pbp(2024)
 
-# filter data
+# filter data to call receiving plays from KC and Philly
+# incldues regular and postseason
+# no need to filter out qb spikes since there is no receiver targeted on those plays
 sbeparec = nfldata %>%
   filter(week < 22,
          posteam == "KC" | posteam == "PHI",
@@ -17,7 +19,7 @@ sbeparec = nfldata %>%
   summarize(tgts = n(),
             epaper = sum(epa)/sum(tgts)) %>%
   arrange(-tgts) %>%
-  filter(tgts >= 50) %>%
+  filter(tgts >= 50) %>%      # include players with at least 50 targets this season
   print(n = Inf)
 
 # plot data
@@ -47,6 +49,6 @@ eparecplot2 = ggplot(data = sbeparec, aes(x = epaper,
 # view plot
 eparecplot2
 
-# save plot
+# save plot to device's local files
 ggsave("SubSt2.9 - epa_per_target.png",
        width = 10.5, height = 7.5, dpi = "retina")
