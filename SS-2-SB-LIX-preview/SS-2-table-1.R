@@ -7,7 +7,7 @@ library(gt)
 library(data.table)
 library(gtExtras)
 
-# load data
+# load 2024 NFL data
 nfldata = load_pbp(2024)
 
 # create tibble 1
@@ -118,5 +118,6 @@ sbtbl1 = gt(t_sb1data) %>%
 # view table
 sbtbl1
 
-# save table
-sbtbl1 %>%gtsave("SubSt2.3 - gt_sb_preview.png")
+# save table to device's local files
+sbtbl1 %>%
+  gtsave("SubSt2.3 - gt_sb_preview.png")
