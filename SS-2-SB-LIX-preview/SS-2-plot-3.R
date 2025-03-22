@@ -1,9 +1,9 @@
 # load packages
-library(tidyverse)
+library(tidyverse)      # data wrangling
 library(nflfastR)
 library(nflplotR)
 library(nflreadr)
-library(ggrepel)
+library(ggrepel)        # replaces geom_text() when plotting
 
 # pull 2024 NFL game results
 schedules1 = fast_scraper_schedules(2024)
@@ -101,7 +101,7 @@ scorediff1 = ggplot(data = teamstats5, aes(x = week, y = cum_result)) +
 # view plot
 scorediff1
 
-# save plot
+# save plot to device's local files
 ggsave("SubSt2.7 - point_diff.png",
        width = 10.5, height = 7.5, dpi = "retina")
   
