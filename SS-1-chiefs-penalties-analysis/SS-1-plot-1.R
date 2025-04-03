@@ -44,6 +44,6 @@ penplot1 = pendata1 %>%
 # view plot
 penplot1
 
-# save plot to device's local files
+# save plot
 ggsave("SubSt1.1 - reg_szn_pens.png",
        width = 10.5, height = 7, dpi = "retina")

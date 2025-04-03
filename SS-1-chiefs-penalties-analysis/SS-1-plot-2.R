@@ -74,9 +74,9 @@ plotregpen5 = ggplot(data = allpenyd) +
         axis.text.x = element_text(size = 12),
         axis.text.y = element_blank())
 
-# view plot
+# view plot 1
 plotregpen5
 
-# save plot to device's local files
+# save plot
 ggsave("X post 46 - reg_penyd.png",
        width = 10.5, height = 7, dpi = "retina")

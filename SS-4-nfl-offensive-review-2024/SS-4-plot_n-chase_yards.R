@@ -1,4 +1,3 @@
-# load packages
 library(tidyverse)
 library(dplyr)
 library(nflfastR)
@@ -21,11 +20,11 @@ wrdata6 = nfldata %>%
             yds = sum(yards_gained),
             .groups = "drop")
 
-# add cumulative rec yds and targets columns to existing tibble
+# create cumulative rec yds and targets columns
 wrdata6$cumyds = ave(wrdata6$yds, wrdata6$receiver_player_id, FUN = cumsum)
 wrdata6$cumtgts = ave(wrdata6$tgts, wrdata6$receiver_player_id, FUN = cumsum)
 
-# frame last targets of dataset for later geom_point()
+# frame last targets for later geom_point
 framewr6 = wrdata6 %>%
   filter(play_id == "5028") %>%
   print(n = Inf)
@@ -64,6 +63,6 @@ wrplot6 = ggplot(data = wrdata6, aes(x = play_id, y = cumyds, group = receiver_p
 # view plot
 wrplot6
 
-# save plot to device's local files
+# save plot
 ggsave("SubSt4.n - chase_yards.png",
        width = 10.5, height = 7, dpi = "retina")
