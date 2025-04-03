@@ -1,6 +1,6 @@
 library(tidyverse)        # data wrangling
 
-# view tibble
+# load data
 kenbart1
 
 # create tibble 1
