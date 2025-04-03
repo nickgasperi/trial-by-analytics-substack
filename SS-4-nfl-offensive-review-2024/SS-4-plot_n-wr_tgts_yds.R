@@ -1,3 +1,4 @@
+# load packages
 library(tidyverse)
 library(nflfastR)
 library(nflplotR)
@@ -18,7 +19,7 @@ wrdata5 = nfldata %>%
   arrange(-tgts) %>%
   print(n = Inf)
 
-# plot data
+# plot targets and receiving yds by receiver
 wrplot5 = ggplot(data = wrdata5, aes(x = tgts, y = recyd)) +
   geom_hline(yintercept = mean(wrdata5$recyd),
              linetype = "dashed",
@@ -50,6 +51,6 @@ wrplot5 = ggplot(data = wrdata5, aes(x = tgts, y = recyd)) +
 # view plot
 wrplot5
 
-# save plot
+# save plot to device's local files
 ggsave("SubSt4.n - reg_passers.png",
        width = 10.5, height = 7, dpi = "retina")
