@@ -3,6 +3,7 @@ library(tidyverse)        # data wrangling
 # view tibble
 kenbart1
 
+# create tibble 1
 kbprev = kenbart1 %>%
   select(SEED, YEAR, TEAM, WAB, BARTHAG, `BADJ EM`, `EFG%`) %>%
   filter(YEAR == 2018 | YEAR == 2019 | YEAR == 2020 |
@@ -13,6 +14,7 @@ kbprev = kenbart1 %>%
             avgEFF = mean(`BADJ EM`), avgEFG = mean(`EFG%`)) %>%
   print(n = Inf)
 
+# create tibble 2
 kbnow = kenbart1 %>%
   select(SEED, YEAR, TEAM, WAB, BARTHAG, `BADJ EM`, `EFG%`) %>%
   filter(YEAR == 2025,
