@@ -47,6 +47,7 @@ kbcomp2 = tibble(
 kbcomp2
 
 # create group of 4 barplots with ggplot() and face_wrap()
+# when formatting facet_wrap use 'strip' functions
 plotkbcomp = ggplot(data = kbcomp2, aes(x = seasons, y = value,
                                         fill = seasons)) +
   geom_bar(position = "dodge", stat = "identity") +
@@ -56,11 +57,14 @@ plotkbcomp = ggplot(data = kbcomp2, aes(x = seasons, y = value,
             position = position_stack(vjust = 0.9),
             fontface = "bold", color = "white", size = 5) +
   theme_bw() +
-  theme(legend.title = element_text(face = "bold"))
+  theme(legend.title = element_text(face = "bold"),
+        axis.title = element_blank(),
+        strip.background = element_rect(fill = "white"),
+        strip.text = element_text(face = "bold", size = 12))
 
 # view plot
 plotkbcomp
 
 # save plot to device's local files
-ggsave("1-seed-facet-comp.png",
-       width = 14, height = 10, dpi = "retina")  
+ggsave("facet-comp-1-seed.png",
+       width = 8, height = 5, dpi = "retina")  
