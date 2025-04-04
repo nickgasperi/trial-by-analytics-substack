@@ -39,8 +39,8 @@ power1 = kenbart2025 %>%
         plot.title = element_text(hjust = 0.5, size = 24, face = "bold.italic"),
         plot.subtitle = element_text(hjust = 0.5, size = 21, face = "bold.italic"),
         plot.caption = element_text(size = 11),
-        axis.title = element_text(size = 15, face = "bold"),
-        axis.text = element_text(size = 15))
+        axis.title = element_text(size = 16, face = "bold"),
+        axis.text = element_text(size = 16))
 
 # view plot
 power1
