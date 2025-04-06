@@ -37,8 +37,10 @@ power1 = kenbart2025 %>%
   theme_minimal() +
   theme(legend.position = "none",
         plot.background = element_rect(fill = "white"),
-        plot.title = element_text(hjust = 0.5, size = 24, face = "bold.italic"),
-        plot.subtitle = element_text(hjust = 0.5, size = 21, face = "bold.italic"),
+        plot.title = element_text(hjust = 0.5,
+                                  size = 24, face = "bold.italic"),
+        plot.subtitle = element_text(hjust = 0.5,
+                                     size = 21, face = "bold.italic"),
         plot.caption = element_text(size = 11),
         axis.title = element_text(size = 16, face = "bold"),
         axis.text = element_text(size = 16))
