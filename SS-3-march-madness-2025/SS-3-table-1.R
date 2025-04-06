@@ -63,12 +63,12 @@ tbl_ffpreview = gt(t_kbfour) %>%
   gt_theme_pff() %>%
   cols_move(columns = "Duke",
             after = "TEAM") %>%
-  cols_move(columns = "Auburn",
+  cols_move(columns = "Houston",
+            after = "Duke") %>%
+  cols_move(columns = "TEAM",
             after = "Houston") %>%
   cols_align(align = "center",
-             columns = c("Duke", "Florida", "Houston", "Auburn")) %>%
-  cols_align(align = "right",
-             columns = "TEAM") %>%
+             columns = c("Duke", "Houston", "TEAM", "Florida", "Auburn")) %>%
   cols_label(TEAM = "",
              Duke = md("<img src='C:/Users/Nick Gasperi/Downloads/duke-logo.png' style='height:30px;'>"),
              Florida = md("<img src='C:/Users/Nick Gasperi/Downloads/florida-logo.png' style='height:30px;'>"),
