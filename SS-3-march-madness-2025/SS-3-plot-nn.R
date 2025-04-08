@@ -1,7 +1,7 @@
 # load packages
-library(tidyverse)
-library(readxl)
-library(ggrepel)
+library(tidyverse)    # data wrangling
+library(readxl)       # to import data
+library(ggrepel)      # replaces geom_text
 
 # load data
 kenbart1
@@ -15,8 +15,8 @@ kenbart1$logo[kenbart1$TEAM == "Florida" & kenbart1$YEAR == 2025] = "C:/Users/Ni
 kenbart1$logo[kenbart1$TEAM == "Houston" & kenbart1$YEAR == 2025] = "C:/Users/Nick Gasperi/Downloads/houston-logo.png"
 kenbart1$logo[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "C:/Users/Nick Gasperi/Downloads/duke-logo.png"
 
-# plot
-# set color to purple if prev. champion, grey if not, and match color to plot background for '25 1-seeds since we will insert logos
+# plot experience vs. height
+# set color to purple if prev. champion, grey if not, and match color to plot background for '25 1-seeds since we will insert logos to replace points
 tempoplot = kenbart1 %>%
   mutate(color5 = ifelse(ROUND == 1, "purple", ifelse(YEAR == 2025 & SEED == 1, "white", "#F0F0F0"))) %>%
   mutate(size5 = ifelse(ROUND == 1, 2, 1)) %>%

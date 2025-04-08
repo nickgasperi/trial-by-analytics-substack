@@ -10,7 +10,7 @@ topconf = c("B12", "SEC", "ACC", "B10", "BE")
 
 # plot data
 wabexample = kenbart1 %>%
-  mutate(color5 = ifelse(CONF %in% topconf, "purple", "darkgrey")) %>%
+  mutate(color5 = ifelse(CONF %in% topconf, "purple", "darkgrey")) %>%    # highlight only teams from prev. defined leagues
   ggplot(aes(x = TEAM, y = WAB)) +
   geom_hline(yintercept = 0,
              color = "red3",
@@ -38,5 +38,5 @@ wabexample = kenbart1 %>%
 wabexample
 
 # save plot to device's local files
-ggsave("SubSt3.n-wab_example.png",
+ggsave("SubSt3.1-wab_example.png",
        width = 12, height = 9, dpi = "retina")
