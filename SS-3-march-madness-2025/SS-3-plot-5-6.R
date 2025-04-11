@@ -40,8 +40,6 @@ kenbart77 = kenbart1 %>%
   filter(SEED == 1) %>%
   print(n = Inf)
 
-mean(kenbart77$comprank)
-
 # plot
 plot77 = kenbart77 %>%
   mutate(color77pri = ifelse(YEAR == 2025, colorpri, "grey90")) %>%
@@ -72,6 +70,34 @@ plot77
 # save the plot to the device's local files
 ggsave("SubSt3.n-comp-rating.png",
        width = 14, height = 10, dpi = "retina")
+
+
+### same but group by YEAR to find cumulative strength
+kenbart80 = kenbart1 %>%
+  select(YEAR, SEED, comprank, colorpri, colorsec, logo) %>%
+  filter(SEED == 1) %>%
+  group_by(YEAR) %>%
+  summarize(cumrank = mean(comprank)) %>%
+  print(n = Inf)
+
+# plot
+plot80 = kenbart80 %>%
+  mutate(color80 = ifelse(YEAR == 2025, "purple", "grey")) %>%
+  ggplot(aes(x = YEAR, y = reorder(cumrank, -cumrank))) +
+  scale_x_discrete() +
+  geom_bar(stat = "identity",
+           aes(fill = color80)) +
+  scale_fill_identity() +
+  scale_color_identity() +
+  labs(title = "",
+       subtitle = "",
+       x = "YEAR", y = "CUM RANK") +
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = "white"),
+        panel.grid = element_line(color = "grey"))
+
+# view plot
+plot80
 
 
 # agg data
