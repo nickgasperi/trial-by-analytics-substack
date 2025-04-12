@@ -32,7 +32,7 @@ power2 = kenbart2 %>%
              size = 0.03) +
   scale_color_identity() +
   labs(title = "Power Rating vs. Wins Above Bubble",
-       subtitle = "2016-2025 Tournaments",
+       subtitle = "'16-'25 Tournament Teams",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin") +
   theme_minimal() +
   theme(legend.position = "none",
