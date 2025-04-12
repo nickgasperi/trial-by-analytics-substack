@@ -40,7 +40,10 @@ kenbart77 = kenbart1 %>%
   filter(SEED == 1) %>%
   print(n = Inf)
 
-# plot
+# create plot
+# use mutate to add color to bars for only 2025 teams
+# use reorder() to reverse the order of the y axis
+# add horizontal line for average rank
 plot77 = kenbart77 %>%
   mutate(color77pri = ifelse(YEAR == 2025, colorpri, "grey90")) %>%
   mutate(color77sec = ifelse(YEAR == 2025, colorsec, NA)) %>%
@@ -56,21 +59,28 @@ plot77 = kenbart77 %>%
              position = position_stack(vjust = 1.05)) +
   geom_hline(yintercept = max(kenbart77$comprank)-3.904412,
              linetype = "dashed") +
-  labs(title = "",
-       subtitle = "",
+  labs(title = "Barttrovik + Kenpom Composite Power Rank",
+       subtitle = "1-Seeds | '08-'25 Tournaments",
+       caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
        x = "TEAM", y = "COMPOSITE RANK") +
   theme_minimal() +
-  theme(plot.background = element_rect(fill = "white"),
-        panel.grid = element_line(color = "white"),
+  theme(panel.grid = element_line(color = "white"),
+        plot.background = element_rect(fill = "white"),
+                plot.title = element_text(hjust = 0.5,
+                                  size = 24, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5,
+                                     size = 22, face = "bold"),
+        plot.caption = element_text(size = 12),
+        axis.title = element_text(size = 16, face = "bold"),
+        axis.text.y = element_text(size = 16),
         axis.text.x = element_blank())
 
 # view
 plot77
 
 # save the plot to the device's local files
-ggsave("SubSt3.n-comp-rating.png",
+ggsave("SubSt3-plot5-comp-rating.png",
        width = 14, height = 10, dpi = "retina")
-
 
 ### same but group by YEAR to find cumulative strength
 kenbart80 = kenbart1 %>%
@@ -80,31 +90,38 @@ kenbart80 = kenbart1 %>%
   summarize(cumrank = mean(comprank)) %>%
   print(n = Inf)
 
-# plot
+# change YEAR column to character type for easier x axis sorting
+kenbart80$YEAR = as.character(kenbart80$YEAR)
+
+# create plot
+# highlight only the 2025 FF group with mutate()
+# use reorder() to reverse the order of the y axis
 plot80 = kenbart80 %>%
   mutate(color80 = ifelse(YEAR == 2025, "purple", "grey")) %>%
   ggplot(aes(x = YEAR, y = reorder(cumrank, -cumrank))) +
-  scale_x_discrete() +
   geom_bar(stat = "identity",
            aes(fill = color80)) +
   scale_fill_identity() +
-  scale_color_identity() +
-  labs(title = "",
-       subtitle = "",
-       x = "YEAR", y = "CUM RANK") +
+  labs(title = "Barttrovik + Kenpom Composite Power Rank",
+       subtitle = "Final Four Groups | '08-'25 Tournaments",
+       caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
+       x = "YEAR", y = "COMPOSITE RANK") +
   theme_minimal() +
   theme(plot.background = element_rect(fill = "white"),
-        panel.grid = element_line(color = "grey"))
+        panel.grid.major.x = element_line(color = "white"),
+        panel.grid.major.y = element_line(color = "grey"),
+        plot.title = element_text(hjust = 0.5,
+                                  size = 24, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5,
+                                     size = 24, face = "bold"),
+        plot.caption = element_text(size = 16),
+        axis.title = element_text(size = 16, face = "bold"),
+        axis.text = element_text(size = 16))
 
 # view plot
 plot80
 
+# save the plot to the device's local files
+ggsave("SubSt3-plot6-comp-rating-group.png",
+       width = 14, height = 10, dpi = "retina")
 
-# agg data
-# includes final four teams from '08-'24 and the '25 final four teams
-kenbart88 = kenbart1 %>%
-  select(YEAR, ROUND, SEED, TEAM, SQUAD, comprank) %>%
-  filter(ROUND < 5 & YEAR < 2025 | SEED == 1 & YEAR == 2025) %>%
-  print(n = Inf)
-
-# plot
