@@ -28,7 +28,8 @@ tempoplot = kenbart1 %>%
              size = 0.065) +
   labs(title = "Avg. Experience vs. Avg. Height",
        subtitle = "National Champions | '08-'25 Tournament Teams",
-       caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin") +
+       caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
+       x = "EXPERIENCE", y = "HEIGHT") +
   theme_minimal() +
   theme(legend.position = "none",
         plot.background = element_rect(fill = "white"),
