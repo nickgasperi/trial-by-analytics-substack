@@ -36,16 +36,16 @@ champsplot1 = kbchamps %>%
                   size = 5.5) +
   geom_image(aes(image = kbchamps$logo),
              size = 0.065) +
-  labs(title = "Barttrovik Power Rating vs. Kenpom Adj. Efficiency",
-       subtitle = "National Champions 2008-2024",
+  labs(title = "Barttorvik Power Rating vs. Kenpom Adj. Efficiency",
+       subtitle = "'08-'24 National Champions",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin") +
   theme_minimal() +
   theme(legend.position = "none",
         plot.background = element_rect(fill = "white"),
         plot.title = element_text(hjust = 0.5,
-                                  face = "bold.italic", size = 22),
+                                  face = "bold.italic", size = 24),
         plot.subtitle = element_text(hjust = 0.5,
-                                     face = "bold.italic", size = 20),
+                                     face = "bold.italic", size = 22),
         plot.caption = element_text(size = 11),
         axis.title = element_text(face = "bold", size = 16),
         axis.text = element_text(size = 16))
@@ -54,5 +54,5 @@ champsplot1 = kbchamps %>%
 champsplot1
 
 # save the plot to the device's local files
-ggsave("SubSt3.n-barthag_eff_champs.png",
+ggsave("SS3-plot13-barthag_eff_champs.png",
        width = 14, height = 10, dpi = "retina")
