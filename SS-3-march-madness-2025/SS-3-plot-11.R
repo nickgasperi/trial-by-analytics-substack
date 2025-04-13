@@ -33,7 +33,7 @@ champs2 = kenbart1 %>%
                                   size = 24),
         plot.subtitle = element_text(hjust = 0.5,
                                      face = "bold",
-                                     size = 20),
+                                     size = 22),
         plot.caption = element_text(size = 12),
         axis.title = element_text(face = "bold",
                                   size = 18),

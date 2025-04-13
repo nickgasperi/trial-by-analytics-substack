@@ -122,5 +122,5 @@ plot80 = kenbart80 %>%
 plot80
 
 # save the plot to the device's local files
-ggsave("SubSt3-plot6-comp-rating-group.png",
+ggsave("SS3-plot6-comp-rating-group.png",
        width = 14, height = 10, dpi = "retina")

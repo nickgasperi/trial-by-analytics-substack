@@ -40,7 +40,7 @@ sosplot = kenbart1 %>%
         plot.title = element_text(hjust = 0.5,
                                   size = 24, face = "bold"),
         plot.subtitle = element_text(hjust = 0.5,
-                                     size = 24, face = "bold"),
+                                     size = 22, face = "bold"),
         plot.caption = element_text(size = 16),
         axis.title = element_text(size = 16, face = "bold"),
         axis.text = element_text(size = 16))
