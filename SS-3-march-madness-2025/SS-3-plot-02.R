@@ -31,8 +31,8 @@ power1 = kenbart2025 %>%
   geom_image(aes(image = kenbart2025$logo),
              size = 0.06) +
   scale_color_identity() +
-  labs(title = "Power Rating vs. Wins Above Bubble",
-       subtitle = "2025 March Madness",
+  labs(title = "Barttorvik Power Rating vs. Wins Above Bubble",
+       subtitle = "'25 Tournament Teams",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin") +
   theme_minimal() +
   theme(legend.position = "none",
@@ -49,5 +49,5 @@ power1 = kenbart2025 %>%
 power1
 
 # save the plot to the device's local files
-ggsave("SubSt3.1-barthag_wab.png",
+ggsave("SubSt3.2-barthag_wab.png",
        width = 14, height = 10, dpi = "retina")
