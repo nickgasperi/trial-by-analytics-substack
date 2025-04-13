@@ -38,5 +38,5 @@ wabexample = kenbart1 %>%
 wabexample
 
 # save plot to device's local files
-ggsave("SubSt3.1-wab_example.png",
+ggsave("SS-3-plot1-wab_example.png",
        width = 12, height = 9, dpi = "retina")
