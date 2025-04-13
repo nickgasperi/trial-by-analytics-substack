@@ -25,7 +25,7 @@ tempoplot = kenbart1 %>%
                  size = size5)) +
   scale_color_identity() +
   geom_image(aes(image = kenbart1$logo),
-             size = 0.06) +
+             size = 0.065) +
   labs(title = "Avg. Experience vs. Avg. Height",
        subtitle = "National Champions | '08-'25 Tournament Teams",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin") +
@@ -33,9 +33,9 @@ tempoplot = kenbart1 %>%
   theme(legend.position = "none",
         plot.background = element_rect(fill = "white"),
         plot.title = element_text(hjust = 0.5,
-                                  size = 22, face = "bold.italic"),
+                                  size = 24, face = "bold.italic"),
         plot.subtitle = element_text(hjust = 0.5,
-                                     size = 20, face = "bold.italic"),
+                                     size = 22, face = "bold.italic"),
         plot.caption = element_text(size = 12),
         axis.title = element_text(size = 16, face = "bold"),
         axis.text = element_text(size = 16))
