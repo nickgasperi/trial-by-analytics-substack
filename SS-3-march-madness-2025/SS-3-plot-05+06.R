@@ -59,7 +59,7 @@ plot77 = kenbart77 %>%
              position = position_stack(vjust = 1.05)) +
   geom_hline(yintercept = max(kenbart77$comprank)-3.904412,
              linetype = "dashed") +
-  labs(title = "Barttrovik + Kenpom Composite Power Rank",
+  labs(title = "Barttorvik + Kenpom Composite Power Rank",
        subtitle = "1-Seeds | '08-'25 Tournaments",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
        x = "TEAM", y = "COMPOSITE RANK") +
@@ -102,7 +102,7 @@ plot80 = kenbart80 %>%
   geom_bar(stat = "identity",
            aes(fill = color80)) +
   scale_fill_identity() +
-  labs(title = "Barttrovik + Kenpom Composite Power Rank",
+  labs(title = "Barttorvik + Kenpom Composite Power Rank",
        subtitle = "1-Seeds by Year | '08-'25 Tournaments",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
        x = "YEAR", y = "COMPOSITE RANK") +
@@ -113,7 +113,7 @@ plot80 = kenbart80 %>%
         plot.title = element_text(hjust = 0.5,
                                   size = 24, face = "bold"),
         plot.subtitle = element_text(hjust = 0.5,
-                                     size = 24, face = "bold"),
+                                     size = 22, face = "bold"),
         plot.caption = element_text(size = 16),
         axis.title = element_text(size = 16, face = "bold"),
         axis.text = element_text(size = 16))
