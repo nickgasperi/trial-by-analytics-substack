@@ -103,7 +103,7 @@ plot80 = kenbart80 %>%
            aes(fill = color80)) +
   scale_fill_identity() +
   labs(title = "Barttrovik + Kenpom Composite Power Rank",
-       subtitle = "Final Four Groups | '08-'25 Tournaments",
+       subtitle = "1-Seeds by Year | '08-'25 Tournaments",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
        x = "YEAR", y = "COMPOSITE RANK") +
   theme_minimal() +
