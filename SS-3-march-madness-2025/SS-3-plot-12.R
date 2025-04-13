@@ -1,58 +1,53 @@
+# sos rank -- too high??
+
 # load packages
-library(tidyverse)    # data wrangling
-library(readxl)       # to import data
-library(ggrepel)
+library(tidyverse)        # data wrangling
+library(readxl)           # to import data
+library(ggimage)
 
 # load data
 kenbart1
 
-# wrangle data into new tibble with only national champions since 2008 and the 2025 final 4 teams
-kbchamps = kenbart1 %>%
-  filter(ROUND == 1 | YEAR == 2025 & SEED == 1) %>%
-  print(n = Inf)
-
-# insert blank column where we can add logos
-kbchamps[, "logo"] = NA
+# add empty column to dump logos into
+kenbart1[, "logo"] = NA
 
 # insert team logos for the four 1 seeds by conditionally replacing values
-kbchamps$logo[kbchamps$TEAM == "Auburn" & kbchamps$YEAR == 2025] = "C:/Users/Nick Gasperi/Downloads/auburn-logo.png"
-kbchamps$logo[kbchamps$TEAM == "Florida" & kbchamps$YEAR == 2025] = "C:/Users/Nick Gasperi/Downloads/florida-logo.png"
-kbchamps$logo[kbchamps$TEAM == "Houston" & kbchamps$YEAR == 2025] = "C:/Users/Nick Gasperi/Downloads/houston-logo.png"
-kbchamps$logo[kbchamps$TEAM == "Duke" & kbchamps$YEAR == 2025] = "C:/Users/Nick Gasperi/Downloads/duke-logo.png"
+kenbart1$logo[kenbart1$TEAM == "Auburn" & kenbart1$YEAR == 2025] = "C:/Users/Nick Gasperi/Downloads/auburn-logo.png"
+kenbart1$logo[kenbart1$TEAM == "Florida" & kenbart1$YEAR == 2025] = "C:/Users/Nick Gasperi/Downloads/florida-logo.png"
+kenbart1$logo[kenbart1$TEAM == "Houston" & kenbart1$YEAR == 2025] = "C:/Users/Nick Gasperi/Downloads/houston-logo.png"
+kenbart1$logo[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "C:/Users/Nick Gasperi/Downloads/duke-logo.png"
 
-# insert column that combines year and team name
-kbchamps$teamyear = paste(kbchamps$TEAM, kbchamps$YEAR, sep = ", ")
-
-champsplot1 = kbchamps %>%
-  mutate(pointcolor4 = ifelse(YEAR == 2025, "white", "purple")) %>%
-  mutate(label4 = ifelse(YEAR == 2025, "", teamyear)) %>%
-  ggplot(aes(x = BARTHAG, y = `KADJ EM`)) +
-  geom_point(aes(color = pointcolor4),
-             size = 4) +
+# plot data
+sosplot = kenbart1 %>%
+  mutate(color7 = ifelse(ROUND == 1, "purple", ifelse(YEAR == 2025 & SEED == 1, "white", "lightgrey"))) %>%
+  mutate(size7 = ifelse(ROUND == 1, 7, 1)) %>%
+  ggplot(aes(x = YEAR, y = `ELITE SOS RANK`)) +
+  geom_hline(yintercept = 28.25,
+             linetype = "dashed", color = "red", linewidth = 1.25) +
+  geom_point(aes(color = color7,
+                 size = size7)) +
   scale_color_identity() +
-  geom_text_repel(box.padding = 0.85,
-                  aes(label = label4,
-                      fontface = "bold"),
-                  size = 5.5) +
-  geom_image(aes(image = kbchamps$logo),
-             size = 0.065) +
-  labs(title = "Barttrovik Power Rating vs. Kenpom Adj. Efficiency",
-       subtitle = "National Champions 2008-2024",
-       caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin") +
+  geom_image(aes(image = kenbart1$logo),
+             size = 0.035) +
+  scale_x_continuous(n.breaks = 17) +
+  labs(title = "Strength of Schedule Rank",
+       subtitle = "National Champions | '08-'25 Tournament Teams",
+       caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
+       y = "SOS RANK") +
   theme_minimal() +
   theme(legend.position = "none",
         plot.background = element_rect(fill = "white"),
         plot.title = element_text(hjust = 0.5,
-                                  face = "bold.italic", size = 22),
+                                  size = 24, face = "bold"),
         plot.subtitle = element_text(hjust = 0.5,
-                                     face = "bold.italic", size = 20),
-        plot.caption = element_text(size = 11),
-        axis.title = element_text(face = "bold", size = 16),
+                                     size = 24, face = "bold"),
+        plot.caption = element_text(size = 16),
+        axis.title = element_text(size = 16, face = "bold"),
         axis.text = element_text(size = 16))
 
 # view plot
-champsplot1
+sosplot  
 
 # save the plot to the device's local files
-ggsave("SubSt3.n-barthag_eff_champs.png",
+ggsave("SubSt3.n-sos_plot.png",
        width = 14, height = 10, dpi = "retina")
