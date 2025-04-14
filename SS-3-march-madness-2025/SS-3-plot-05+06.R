@@ -1,12 +1,13 @@
 # load packages
 library(tidyverse)        # data wrangling
 library(readxl)           # to import data
+library(ggimage)
 
 # 
 kenbart1
 
 # plot
-kenbart1$comprank = (kenbart1$`KADJ EM RANK` + kenbart$`BARTHAG RANK`)/2
+kenbart1$comprank = (kenbart1$`KADJ EM RANK` + kenbart1$`BARTHAG RANK`)/2
 
 # add column to use as labels in
 kenbart1$SQUAD = paste(kenbart1$TEAM, kenbart1$YEAR, sep = ", ")
