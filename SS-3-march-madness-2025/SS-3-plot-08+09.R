@@ -115,7 +115,7 @@ plot90 = kenbart90 %>%
                                   size = 24, face = "bold.italic"),
         plot.subtitle = element_text(hjust = 0.5,
                                      size = 22, face = "bold.italic"),
-        plot.caption = element_text(size = 16),
+        plot.caption = element_text(size = 12),
         axis.title = element_text(size = 16, face = "bold"),
         axis.text = element_text(size = 16))
 
