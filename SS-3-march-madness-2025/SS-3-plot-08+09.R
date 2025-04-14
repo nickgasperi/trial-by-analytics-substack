@@ -34,9 +34,12 @@ kenbart1$colorsec[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "#000000"
 # agg data
 # includes final four teams from '08-'24 and the '25 final four teams
 kenbart88 = kenbart1 %>%
-  select(YEAR, ROUND, SEED, TEAM, SQUAD, comprank) %>%
+  select(YEAR, ROUND, SEED, TEAM, SQUAD, comprank, logo, colorpri, colorsec) %>%
   filter(ROUND < 5 & YEAR < 2025 | SEED == 1 & YEAR == 2025) %>%
   print(n = Inf)
+
+# 
+mean(kenbart88$comprank)
 
 # create plot
 # use mutate to add color to bars for only 2025 teams
@@ -53,10 +56,11 @@ plot88 = kenbart88 %>%
   scale_fill_identity() +
   scale_color_identity() +
   geom_image(aes(image = kenbart88$logo),
-             size = 0.055,
+             size = 0.052,
              position = position_stack(vjust = 1.05)) +
-  geom_hline(yintercept = max(kenbart88$comprank)-3.904412,
+  geom_hline(yintercept = 23,
              linetype = "dashed") +
+  scale_y_discrete(breaks = c(1,2,3,4,5,84)) +
   labs(title = "Barttorvik + Kenpom Composite Power Rank",
        subtitle = "Final Four Teams | '08-'25 Tournaments",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
@@ -82,8 +86,8 @@ ggsave("SubSt3-plot8-comp-rating.png",
 
 ### same but group by YEAR to find cumulative strength
 kenbart90 = kenbart1 %>%
-  select(YEAR, SEED, comprank, colorpri, colorsec, logo) %>%
-  filter(SEED == 1) %>%
+  select(YEAR, SEED, ROUND, comprank, colorpri, colorsec, logo) %>%
+  filter(ROUND < 5 & YEAR < 2025 | SEED == 1 & YEAR == 2025) %>%
   group_by(YEAR) %>%
   summarize(cumrank = mean(comprank)) %>%
   print(n = Inf)
@@ -97,8 +101,7 @@ kenbart90$YEAR = as.character(kenbart90$YEAR)
 plot90 = kenbart90 %>%
   mutate(color90 = ifelse(YEAR == 2025, "purple", "grey")) %>%
   ggplot(aes(x = YEAR, y = reorder(cumrank, -cumrank))) +
-  geom_bar(stat = "identity",
-           aes(fill = color90)) +
+  geom_col(aes(fill = color90)) +
   scale_fill_identity() +
   labs(title = "Barttorvik + Kenpom Composite Power Rank",
        subtitle = "Final Four Groups | '08-'25 Tournaments",

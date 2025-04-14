@@ -64,6 +64,7 @@ plot77 = kenbart77 %>%
        subtitle = "1-Seeds | '08-'25 Tournaments",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
        x = "TEAM", y = "COMPOSITE RANK") +
+  scale_y_discrete(breaks = c(1, 1.5, 2, 2.5, 3, 3.5, 4, 17.5)) +
   theme_minimal() +
   theme(panel.grid = element_line(color = "white"),
         plot.background = element_rect(fill = "white"),
