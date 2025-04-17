@@ -3,10 +3,10 @@ library(tidyverse)        # data wrangling
 library(readxl)           # to import data
 library(ggimage)
 
-# convert dataframe to tibble
-kenbart1 = as_tibble(kenbart)
+# load data
+kenbart1
 
-# select only 2025 tournament
+# create new tibble that includes data from only 2025 tournament
 kenbart2025 = kenbart1 %>%
   filter(YEAR == 2025)
 
@@ -49,5 +49,5 @@ power1 = kenbart2025 %>%
 power1
 
 # save the plot to the device's local files
-ggsave("SubSt3.2-barthag_wab.png",
+ggsave("SS3-plot2-barthag_wab.png",
        width = 14, height = 10, dpi = "retina")
