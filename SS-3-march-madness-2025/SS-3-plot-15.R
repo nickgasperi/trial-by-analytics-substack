@@ -54,5 +54,5 @@ champsplot1 = kbchamps %>%
 champsplot1
 
 # save the plot to the device's local files
-ggsave("SS3-plot13-barthag_eff_champs.png",
+ggsave("SS3-plot15-barthag_eff_champs.png",
        width = 14, height = 10, dpi = "retina")
