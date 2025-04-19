@@ -17,7 +17,7 @@ kenbart1$logo[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "C:/Users/Nick 
 
 # plot experience vs. height
 # set color to purple if prev. champion, grey if not, and match color to plot background for '25 1-seeds since we will insert logos to replace points
-tempoplot = kenbart1 %>%
+heightplot = kenbart1 %>%
   mutate(color5 = ifelse(ROUND == 1, "purple", ifelse(YEAR == 2025 & SEED == 1, "white", "#F0F0F0"))) %>%
   mutate(size5 = ifelse(ROUND == 1, 2, 1)) %>%
   ggplot(aes(x = EXP, y = `AVG HGT`)) +
@@ -42,7 +42,7 @@ tempoplot = kenbart1 %>%
         axis.text = element_text(size = 16))
 
 # view plot
-tempoplot
+heightplot
 
 # save plot to device's local files
 ggsave("SS3-plot10-exp_height.png",
