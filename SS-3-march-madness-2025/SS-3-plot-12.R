@@ -28,7 +28,7 @@ sosplot = kenbart1 %>%
                  size = size7)) +
   scale_color_identity() +
   geom_image(aes(image = kenbart1$logo),
-             size = 0.035) +
+             size = 0.04) +
   scale_x_continuous(n.breaks = 17) +
   labs(title = "Strength of Schedule Rank",
        subtitle = "National Champions | '08-'25 Tournament Teams",
@@ -38,10 +38,10 @@ sosplot = kenbart1 %>%
   theme(legend.position = "none",
         plot.background = element_rect(fill = "white"),
         plot.title = element_text(hjust = 0.5,
-                                  size = 24, face = "bold.italic"),
+                                  size = 22, face = "bold.italic"),
         plot.subtitle = element_text(hjust = 0.5,
-                                     size = 22, face = "bold.italic"),
-        plot.caption = element_text(size = 12),
+                                     size = 20, face = "bold.italic"),
+        plot.caption = element_text(size = 10),
         axis.title = element_text(size = 16, face = "bold"),
         axis.text = element_text(size = 16))
 
@@ -49,5 +49,5 @@ sosplot = kenbart1 %>%
 sosplot  
 
 # save the plot to the device's local files
-ggsave("SS3-plot12-sos_plot.png",
-       width = 14, height = 10, dpi = "retina")
+ggsave("SS3-plot13-sos_plot.png",
+       width = 12, height = 9, dpi = "retina")
