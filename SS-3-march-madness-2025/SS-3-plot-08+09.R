@@ -3,10 +3,10 @@ library(tidyverse)        # data wrangling
 library(readxl)           # to import data
 library(ggimage)
 
-# 
+# load data
 kenbart1
 
-# plot
+# create composite rank
 kenbart1$comprank = (kenbart1$`KADJ EM RANK` + kenbart1$`BARTHAG RANK`)/2
 
 # add 3 blank columns
@@ -37,9 +37,6 @@ kenbart88 = kenbart1 %>%
   select(YEAR, ROUND, SEED, TEAM, SQUAD, comprank, logo, colorpri, colorsec) %>%
   filter(ROUND < 5 & YEAR < 2025 | SEED == 1 & YEAR == 2025) %>%
   print(n = Inf)
-
-# 
-mean(kenbart88$comprank)
 
 # create plot
 # use mutate to add color to bars for only 2025 teams
@@ -77,14 +74,18 @@ plot88 = kenbart88 %>%
         axis.text.y = element_text(size = 16),
         axis.text.x = element_blank())
 
-# view
+# view plot
 plot88
 
 # save the plot to the device's local files
 ggsave("SubSt3-plot8-comp-rating.png",
        width = 14, height = 10, dpi = "retina")
 
-### same but group by YEAR to find cumulative strength
+
+# Plot 9 ------------------------------------------------------------------
+
+
+# going to create the same plot but group by YEAR
 kenbart90 = kenbart1 %>%
   select(YEAR, SEED, ROUND, comprank, colorpri, colorsec, logo) %>%
   filter(ROUND < 5 & YEAR < 2025 | SEED == 1 & YEAR == 2025) %>%
