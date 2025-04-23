@@ -3,10 +3,10 @@ library(tidyverse)        # data wrangling
 library(readxl)           # to import data
 library(ggimage)
 
-# load data
+# 
 kenbart1
 
-# create composite rank
+# plot
 kenbart1$comprank = (kenbart1$`KADJ EM RANK` + kenbart1$`BARTHAG RANK`)/2
 
 # add column to combine team and year
@@ -34,35 +34,34 @@ kenbart1$colorsec[kenbart1$TEAM == "Houston" & kenbart1$YEAR == 2025] = "#B2B4B2
 kenbart1$colorpri[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "#003087"
 kenbart1$colorsec[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "#000000"
 
-# agg data
-# includes final four teams from '08-'24 and the '25 final four teams
-kenbart88 = kenbart1 %>%
-  select(YEAR, ROUND, SEED, TEAM, SQUAD, comprank, logo, colorpri, colorsec) %>%
-  filter(ROUND < 5 & YEAR < 2025 | SEED == 1 & YEAR == 2025) %>%
+# wrangle data into new tibble that includes only 2025 FF and prev. national champs
+kenbartchamps = kenbart1 %>%
+  filter(ROUND == 1 | SEED == 1 & YEAR == 2025) %>%
   print(n = Inf)
 
-# create plot
-# use mutate to add color to bars for only 2025 teams
-# use reorder() to reverse the order of the y axis
-# add horizontal line for average rank
-plot88 = kenbart88 %>%
-  mutate(color88pri = ifelse(YEAR == 2025, colorpri, "grey90")) %>%
-  mutate(color88sec = ifelse(YEAR == 2025, colorsec, NA)) %>%
+# plot data
+plot24 = kenbartchamps %>%
+  mutate(color24pri = ifelse(YEAR == 2025, colorpri, "grey90")) %>%
+  mutate(color24sec = ifelse(YEAR == 2025, colorsec, NA)) %>%
+  mutate(label24 = ifelse(YEAR < 2025, YEAR, "")) %>%
   ggplot(aes(x = reorder(SQUAD, comprank), y = reorder(comprank, -comprank))) +
   geom_bar(stat = "identity",
-           aes(fill = color88pri,
-               color = color88sec),
+           aes(fill = color24pri,
+               color = color24sec),
            linewidth = 0.8) +
   scale_fill_identity() +
   scale_color_identity() +
-  geom_image(aes(image = kenbart88$logo),
-             size = 0.052,
+  geom_text(aes(label = label24),
+            fontface = "bold.italic",
+            size = 7) +
+  geom_image(aes(image = kenbartchamps$logo),
+             size = 0.075,
              position = position_stack(vjust = 1.05)) +
   geom_hline(yintercept = 23,
              linetype = "dashed") +
-  scale_y_discrete(breaks = c(1,2,3,4,5,84)) +
+  scale_y_discrete(breaks = c(1,2,3,4,5,24)) +
   labs(title = "Barttorvik + Kenpom Composite Power Rank",
-       subtitle = "Final Four Teams | '08-'25 Tournaments",
+       subtitle = "National Champions | '08-'25 Tournaments",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
        x = "TEAM", y = "COMPOSITE RANK") +
   theme_minimal() +
@@ -78,54 +77,8 @@ plot88 = kenbart88 %>%
         axis.text.x = element_blank())
 
 # view plot
-plot88
-
+plot24
+    
 # save the plot to the device's local files
-ggsave("SubSt3-plot8-comp-rating.png",
-       width = 14, height = 10, dpi = "retina")
-
-
-# Plot 9 ------------------------------------------------------------------
-
-
-# going to create the same plot but group by YEAR
-kenbart90 = kenbart1 %>%
-  select(YEAR, SEED, ROUND, comprank, colorpri, colorsec, logo) %>%
-  filter(ROUND < 5 & YEAR < 2025 | SEED == 1 & YEAR == 2025) %>%
-  group_by(YEAR) %>%
-  summarize(cumrank = mean(comprank)) %>%
-  print(n = Inf)
-
-# change YEAR column to character type for easier x axis sorting
-kenbart90$YEAR = as.character(kenbart90$YEAR)
-
-# create plot
-# highlight only the 2025 FF group with mutate()
-# use reorder() to reverse the order of the y axis
-plot90 = kenbart90 %>%
-  mutate(color90 = ifelse(YEAR == 2025, "purple", "grey")) %>%
-  ggplot(aes(x = YEAR, y = reorder(cumrank, -cumrank))) +
-  geom_col(aes(fill = color90)) +
-  scale_fill_identity() +
-  labs(title = "Barttorvik + Kenpom Composite Power Rank",
-       subtitle = "Final Four Groups | '08-'25 Tournaments",
-       caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
-       x = "YEAR", y = "COMPOSITE RANK") +
-  theme_minimal() +
-  theme(plot.background = element_rect(fill = "white"),
-        panel.grid.major.x = element_line(color = "white"),
-        panel.grid.major.y = element_line(color = "grey"),
-        plot.title = element_text(hjust = 0.5,
-                                  size = 24, face = "bold.italic"),
-        plot.subtitle = element_text(hjust = 0.5,
-                                     size = 22, face = "bold.italic"),
-        plot.caption = element_text(size = 12),
-        axis.title = element_text(size = 16, face = "bold"),
-        axis.text = element_text(size = 16))
-
-# view plot
-plot90
-
-# save the plot to the device's local files
-ggsave("SS3-plot9-comp-rating-group.png",
+ggsave("SS3-plot16-comp-rating-champs.png",
        width = 14, height = 10, dpi = "retina")
