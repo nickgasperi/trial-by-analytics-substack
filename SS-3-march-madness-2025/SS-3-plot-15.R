@@ -1,7 +1,8 @@
 # load packages
 library(tidyverse)    # data wrangling
 library(readxl)       # to import data
-library(ggrepel)
+library(ggrepel)      # replaces geom_text()
+library(ggimage)      # replaces geom_text_repel() for 2025 data points
 
 # load data
 kenbart1
@@ -23,6 +24,7 @@ kbchamps$logo[kbchamps$TEAM == "Duke" & kbchamps$YEAR == 2025] = "C:/Users/Nick 
 # insert column that combines year and team name
 kbchamps$teamyear = paste(kbchamps$TEAM, kbchamps$YEAR, sep = ", ")
 
+# plot power rating against adjusted efficiency
 champsplot1 = kbchamps %>%
   mutate(pointcolor4 = ifelse(YEAR == 2025, "white", "purple")) %>%
   mutate(label4 = ifelse(YEAR == 2025, "", teamyear)) %>%
