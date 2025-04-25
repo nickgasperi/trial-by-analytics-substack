@@ -1,12 +1,12 @@
 # load packages
 library(tidyverse)        # data wrangling
 library(readxl)           # to import data
-library(ggimage)
+library(ggimage)          # replaces geom_point() for 2025 teams
 
-# 
+# load data
 kenbart1
 
-# plot
+# calculate Composite Rank
 kenbart1$comprank = (kenbart1$`KADJ EM RANK` + kenbart1$`BARTHAG RANK`)/2
 
 # add column to combine team and year
@@ -40,6 +40,7 @@ kenbartchamps = kenbart1 %>%
   print(n = Inf)
 
 # plot data
+# after reordering, the y axis labels will get stiff - scale_y_discrete is used to make sure the important y-axis labels are incldued
 plot24 = kenbartchamps %>%
   mutate(color24pri = ifelse(YEAR == 2025, colorpri, "grey90")) %>%
   mutate(color24sec = ifelse(YEAR == 2025, colorsec, NA)) %>%
