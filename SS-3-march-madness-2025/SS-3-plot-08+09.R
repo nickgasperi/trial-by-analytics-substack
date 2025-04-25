@@ -1,7 +1,7 @@
 # load packages
 library(tidyverse)        # data wrangling
 library(readxl)           # to import data
-library(ggimage)
+library(ggimage)          # replaces geom_point() for selected data
 
 # load data
 kenbart1
@@ -34,14 +34,17 @@ kenbart1$colorsec[kenbart1$TEAM == "Houston" & kenbart1$YEAR == 2025] = "#B2B4B2
 kenbart1$colorpri[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "#003087"
 kenbart1$colorsec[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "#000000"
 
-# agg data
-# includes final four teams from '08-'24 and the '25 final four teams
+
+# Plot 8 ------------------------------------------------------------------
+
+
+# wrannge data into new tibble that includes final four teams from '08-'24 and the '25 final four teams
 kenbart88 = kenbart1 %>%
   select(YEAR, ROUND, SEED, TEAM, SQUAD, comprank, logo, colorpri, colorsec) %>%
   filter(ROUND < 5 & YEAR < 2025 | SEED == 1 & YEAR == 2025) %>%
   print(n = Inf)
 
-# create plot
+# plot composite rank of all FF teams
 # use mutate to add color to bars for only 2025 teams
 # use reorder() to reverse the order of the y axis
 # add horizontal line for average rank
@@ -88,7 +91,7 @@ ggsave("SubSt3-plot8-comp-rating.png",
 # Plot 9 ------------------------------------------------------------------
 
 
-# going to create the same plot but group by YEAR
+# new tibble - include all 1 seeds instead of FF teams
 kenbart90 = kenbart1 %>%
   select(YEAR, SEED, ROUND, comprank, colorpri, colorsec, logo) %>%
   filter(ROUND < 5 & YEAR < 2025 | SEED == 1 & YEAR == 2025) %>%
@@ -99,7 +102,7 @@ kenbart90 = kenbart1 %>%
 # change YEAR column to character type for easier x axis sorting
 kenbart90$YEAR = as.character(kenbart90$YEAR)
 
-# create plot
+# recreate plot but with YEAR grouping on x axis
 # highlight only the 2025 FF group with mutate()
 # use reorder() to reverse the order of the y axis
 plot90 = kenbart90 %>%
