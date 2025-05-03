@@ -1,18 +1,17 @@
 # load packages
 library(tidyverse)        # data wrangling
-library(readxl)           # to import data
 library(ggimage)          # replaces geom_point() for 2025 teams
 
 # load data
 kenbart1
 
-# calculate Composite Rank
+# create Composite Rank variable
 kenbart1$comprank = (kenbart1$`KADJ EM RANK` + kenbart1$`BARTHAG RANK`)/2
 
 # add column to combine team and year
 kenbart1$SQUAD = paste(kenbart1$TEAM, kenbart1$YEAR, sep = ", ")
 
-# add 3 blank columns
+# add 3 blank columns for logos and colors
 kenbart1[, "logo"] = NA
 kenbart1[, "colorpri"] = NA
 kenbart1[, "colorsec"] = NA

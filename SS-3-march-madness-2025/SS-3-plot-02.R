@@ -1,7 +1,6 @@
 # load packages
 library(tidyverse)        # data wrangling
-library(readxl)           # to import data
-library(ggimage)
+library(ggimage)          # add images to ggplot
 
 # load data
 kenbart1
@@ -10,7 +9,7 @@ kenbart1
 kenbart2025 = kenbart1 %>%
   filter(YEAR == 2025)
 
-# insert blank column where we can add logos
+# insert blank column to add logos
 kenbart2025[, "logo"] = NA
 
 # insert team logos for the four 1 seeds by conditionally replacing values

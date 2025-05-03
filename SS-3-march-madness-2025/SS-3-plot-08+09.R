@@ -1,7 +1,6 @@
 # load packages
 library(tidyverse)        # data wrangling
-library(readxl)           # to import data
-library(ggimage)          # replaces geom_point() for selected data
+library(ggimage)          # add images to ggplot
 
 # load data
 kenbart1

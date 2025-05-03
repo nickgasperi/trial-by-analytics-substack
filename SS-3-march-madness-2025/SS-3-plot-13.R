@@ -1,7 +1,9 @@
 # load packages
 library(tidyverse)        # data wrangling
-library(readxl)           # to import data
-library(ggimage)
+library(ggrepel)          # replaces geom_text()
+
+# load data
+kenbart1
 
 # add column to dataset
 kenbart1$SQUAD = paste(kenbart1$TEAM, kenbart1$YEAR, sep = ", ")

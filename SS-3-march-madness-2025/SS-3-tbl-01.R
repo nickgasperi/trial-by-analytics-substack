@@ -4,7 +4,6 @@ library(janitor)    # data cleaning
 library(gt)         # create tables
 library(gtExtras)   # table formatting
 
-
 # load data
 kenbart1
 
@@ -84,4 +83,4 @@ tbl_ffpreview
 
 # save table to device's local files
 tbl_ffpreview %>%
-  gtsave("Sub3.n-gt_ff_preview.png")
+  gtsave("Sub3.1-gt_ff_preview.png")

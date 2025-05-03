@@ -1,9 +1,11 @@
+# load packages
 library(tidyverse)        # data wrangling
+
 
 # load data
 kenbart1
 
-# Plot 4 Code - 1-Seed Groups -----------------------------------------
+## Plot 4 Code - 1-Seed Groups -----------------------------------------
 
 # create tibble 1
 kbprev = kenbart1 %>%
@@ -68,7 +70,7 @@ ggsave("facet-comp-1-seed.png",
        width = 8, height = 5, dpi = "retina")
 
 
-# Plot 7 Code - Final Four Groups -----------------------------------------
+## Plot 7 Code - Final Four Groups -----------------------------------------
 
 # create tibble 1
 kbffone = kenbart1 %>%

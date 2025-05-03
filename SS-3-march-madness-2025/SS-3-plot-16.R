@@ -1,6 +1,5 @@
 # load packages
 library(tidyverse)    # data wrangling
-library(readxl)       # to import data
 library(ggrepel)      # replaces geom_text()
 library(ggimage)      # replaces geom_text_repel() for 2025 data points
 
@@ -12,7 +11,7 @@ kbchamps = kenbart1 %>%
   filter(ROUND == 1 | YEAR == 2025 & SEED == 1) %>%
   print(n = Inf)
 
-# insert blank column where we can add logos
+# insert blank column to add logos
 kbchamps[, "logo"] = NA
 
 # insert team logos for the four 1 seeds by conditionally replacing values

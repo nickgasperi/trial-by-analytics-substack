@@ -1,6 +1,7 @@
-library(tidyverse)  # data wrangling
-library(gt)         # create tables
-library(gtExtras)   # table formatting
+# load packages
+library(tidyverse)      # data wrangling
+library(gt)              # create tables
+library(gtExtras)       # table formatting
 
 # load data
 kenbart1
@@ -28,4 +29,4 @@ tbloneseed
 
 # save table to device's local files
 tbloneseed %>%
-  gtsave("Sub3.n-gt_barthag_wab.png")
+  gtsave("Sub3.2-gt_barthag_wab.png")

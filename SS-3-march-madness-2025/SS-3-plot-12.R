@@ -1,14 +1,11 @@
-# sos rank -- too high??
-
 # load packages
 library(tidyverse)        # data wrangling
-library(readxl)           # to import data
-library(ggimage)
+library(ggimage)          # add images to ggplot
 
 # load data
 kenbart1
 
-# add empty column to dump logos into
+# insert blank column for logos
 kenbart1[, "logo"] = NA
 
 # insert team logos for the four 1 seeds by conditionally replacing values

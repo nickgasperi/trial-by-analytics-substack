@@ -1,6 +1,6 @@
 # load packages
-library(tidyverse)
-library(ggimage)
+library(tidyverse)        # data wrangling
+library(ggimage)          # add images to ggplot
 
 # load data
 kenbart1

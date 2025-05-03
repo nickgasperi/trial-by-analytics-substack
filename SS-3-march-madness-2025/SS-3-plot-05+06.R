@@ -1,18 +1,17 @@
 # load packages
 library(tidyverse)        # data wrangling
-library(readxl)           # to import data
-library(ggimage)
+library(ggimage)          # add images to ggplot
 
-# 
+# load data
 kenbart1
 
-# plot
+# create new variable Composite Rank
 kenbart1$comprank = (kenbart1$`KADJ EM RANK` + kenbart1$`BARTHAG RANK`)/2
 
 # add column to use as labels in
 kenbart1$SQUAD = paste(kenbart1$TEAM, kenbart1$YEAR, sep = ", ")
 
-# add 3 blank columns
+# add 3 blank columns for logos and team colors
 kenbart1[, "logo"] = NA
 kenbart1[, "colorpri"] = NA
 kenbart1[, "colorsec"] = NA

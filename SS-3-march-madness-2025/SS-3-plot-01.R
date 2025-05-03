@@ -1,6 +1,6 @@
 # load packages
 library(tidyverse)    # data wrangling
-library(readxl)       # to import data
+library(readxl)       # importing data
 
 # load data
 kenbart1

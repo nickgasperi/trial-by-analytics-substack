@@ -1,6 +1,5 @@
 # load packages
 library(tidyverse)    # data wrangling
-library(readxl)       # to import data
 library(ggrepel)      # replaces geom_text
 
 # convert dataframe to tibble

@@ -1,12 +1,11 @@
 # load packages
-library(tidyverse)
-library(ggimage)
-
+library(tidyverse)        # data wrangling
+library(ggimage)          # add images to ggplot
 
 # load data
 kenbart1
 
-# insert blank columns where we can add logos, primary team color, and secondary team color
+# insert blank columns to can add logos, primary team color, and secondary team color
 kbchamps[, "logo"] = NA
 kenbart1[, "colorpri"] = NA
 kenbart1[, "colorsec"] = NA

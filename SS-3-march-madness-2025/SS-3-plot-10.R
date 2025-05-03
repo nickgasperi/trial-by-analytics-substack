@@ -1,12 +1,11 @@
 # load packages
-library(tidyverse)    # data wrangling
-library(readxl)       # to import data
-library(ggrepel)      # replaces geom_text
+library(tidyverse)        # data wrangling
+library(ggimage)          # add images to ggplot
 
 # load data
 kenbart1
 
-# insert blank column where we can add logos
+# insert blank column to add logos
 kenbart1[, "logo"] = NA
 
 # insert team logos for the four 1 seeds by conditionally replacing values
