@@ -43,5 +43,5 @@ champs2 = kenbart1 %>%
 champs2
 
 # save the plot to the device's local files
-ggsave("SS3-plot12-champs_bio.png",
+ggsave("SS3-plot13-champs_bio.png",
        width = 14, height = 10, dpi = "retina")

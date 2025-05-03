@@ -49,5 +49,5 @@ sosplot = kenbart1 %>%
 sosplot  
 
 # save the plot to the device's local files
-ggsave("SS3-plot13-sos_plot.png",
+ggsave("SS3-plot12-sos_plot.png",
        width = 12, height = 9, dpi = "retina")
