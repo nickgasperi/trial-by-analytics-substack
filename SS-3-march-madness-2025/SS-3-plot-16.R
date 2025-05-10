@@ -11,7 +11,7 @@ kbchamps = kenbart1 %>%
   filter(ROUND == 1 | YEAR == 2025 & SEED == 1) %>%
   print(n = Inf)
 
-# insert blank column to add logos
+# insert blank column for logos
 kbchamps[, "logo"] = NA
 
 # insert team logos for the four 1 seeds by conditionally replacing values

@@ -5,6 +5,9 @@ library(ggimage)          # add images to ggplot
 # load data
 kenbart1
 
+# insert blank column for logos
+kenbart1[, "logo"] = NA
+
 # insert team logos for the four 1 seeds by conditionally replacing values
 kenbart1$logo[kenbart1$TEAM == "Auburn" & kenbart1$YEAR == 2025] = "C:/Users/Nick Gasperi/Downloads/auburn-logo.png"
 kenbart1$logo[kenbart1$TEAM == "Florida" & kenbart1$YEAR == 2025] = "C:/Users/Nick Gasperi/Downloads/florida-logo.png"

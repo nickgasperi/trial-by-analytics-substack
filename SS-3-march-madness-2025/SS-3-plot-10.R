@@ -5,7 +5,7 @@ library(ggimage)          # add images to ggplot
 # load data
 kenbart1
 
-# insert blank column to add logos
+# insert blank column for logos
 kenbart1[, "logo"] = NA
 
 # insert team logos for the four 1 seeds by conditionally replacing values

@@ -5,7 +5,7 @@ library(ggimage)          # add images to ggplot
 # load data
 kenbart1
 
-# create new tibble that includes data from only 2025 tournament
+# wrangle data into new tibble that includes data from only 2025 tournament
 kenbart2025 = kenbart1 %>%
   filter(YEAR == 2025)
 
@@ -18,8 +18,9 @@ kenbart2025$logo[kenbart2025$TEAM == "Florida"] = "C:/Users/Nick Gasperi/Downloa
 kenbart2025$logo[kenbart2025$TEAM == "Houston"] = "C:/Users/Nick Gasperi/Downloads/houston-logo.png"
 kenbart2025$logo[kenbart2025$TEAM == "Duke"] = "C:/Users/Nick Gasperi/Downloads/duke-logo.png"
 
-# plot power rating vs. wins above bubble
-# set point color to grey for seeds 2-16 -- match point color to plot background color for teams with logos
+# plot Power Rating vs. WAB
+# set point color to dark grey for seeds 2-16
+# match point color for 2025 teams to plot background color & add logos with geom_image
 power1 = kenbart2025 %>%
   mutate(pointcolor2 = ifelse(SEED > 1, "darkgrey", "white")) %>%
   ggplot(aes(x = BARTHAG, y = WAB)) +

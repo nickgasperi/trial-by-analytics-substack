@@ -5,7 +5,7 @@ library(ggimage)          # add images to ggplot
 # load data
 kenbart1
 
-# insert blank columns to can add logos, primary team color, and secondary team color
+# add three blank columns for logos, primary colors, & secondary colors
 kbchamps[, "logo"] = NA
 kenbart1[, "colorpri"] = NA
 kenbart1[, "colorsec"] = NA

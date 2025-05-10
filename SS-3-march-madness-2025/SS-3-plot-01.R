@@ -2,13 +2,16 @@
 library(tidyverse)    # data wrangling
 library(readxl)       # importing data
 
+# convert dataframe to tibble
+kenbart1 = as_tibble(kenbart)
+
 # load data
 kenbart1
 
 # define top 5 conferences
 topconf = c("B12", "SEC", "ACC", "B10", "BE")
 
-# plot data
+# plot WAB by team
 wabexample = kenbart1 %>%
   mutate(color5 = ifelse(CONF %in% topconf, "purple", "darkgrey")) %>%    # highlight only teams from prev. defined leagues
   ggplot(aes(x = TEAM, y = WAB)) +

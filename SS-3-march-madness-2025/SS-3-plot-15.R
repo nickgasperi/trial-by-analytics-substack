@@ -11,7 +11,7 @@ kenbart1$comprank = (kenbart1$`KADJ EM RANK` + kenbart1$`BARTHAG RANK`)/2
 # add column to combine team and year
 kenbart1$SQUAD = paste(kenbart1$TEAM, kenbart1$YEAR, sep = ", ")
 
-# add 3 blank columns for logos and colors
+# add three blank columns for logos, primary colors, & secondary colors
 kenbart1[, "logo"] = NA
 kenbart1[, "colorpri"] = NA
 kenbart1[, "colorsec"] = NA

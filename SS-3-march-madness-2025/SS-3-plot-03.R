@@ -2,14 +2,14 @@
 library(tidyverse)    # data wrangling
 library(ggrepel)      # replaces geom_text
 
-# convert dataframe to tibble
-kenbart1 = as_tibble(kenbart)
+# load data
+kenbart1
 
-# select teams from 2016 to 2025
+# wrangle data into new tibble that includes all teams from 2016 to 2025
 kenbart2 = kenbart1 %>%
   filter(YEAR >= 2016)
 
-# insert blank column where we can add logos
+# insert blank column for logos
 kenbart2[, "logo"] = NA
 
 # insert team logos for the four 1 seeds by conditionally replacing values
@@ -18,8 +18,9 @@ kenbart2$logo[kenbart2$TEAM == "Florida" & kenbart2$YEAR == 2025] = "C:/Users/Ni
 kenbart2$logo[kenbart2$TEAM == "Houston" & kenbart2$YEAR == 2025] = "C:/Users/Nick Gasperi/Downloads/houston-logo.png"
 kenbart2$logo[kenbart2$TEAM == "Duke" & kenbart2$YEAR == 2025] = "C:/Users/Nick Gasperi/Downloads/duke-logo.png"
 
-# plot power rating vs. wins above bubble
-# set point color to grey for seeds 2-16 -- match point color to plot background color for teams with logos
+# plot Power Rating vs. WAB
+# set point color to grey for all teams except 2025 1-seeds
+# match point color for 2025 teams to plot background color & add logos with geom_image
 power2 = kenbart2 %>%
   mutate(pointcolor3 = ifelse(SEED == 1 & YEAR == 2025, "white", "darkgrey")) %>%
   ggplot(aes(x = BARTHAG, y = WAB)) +
