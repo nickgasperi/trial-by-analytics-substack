@@ -19,8 +19,7 @@ kenbart1$logo[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "C:/Users/Nick 
 # insert column that combines year and team name
 kenbart1$SQUAD = paste(kenbart1$TEAM, kenbart1$YEAR, sep = ", ")
 
-# insert school primary and secondary colors
-# link to hex codes for all sports: 
+# insert hex codes for school primary and secondary colors
 kenbart1$colorpri[kenbart1$TEAM == "Auburn" & kenbart1$YEAR == 2025] = "#0C2340"
 kenbart1$colorsec[kenbart1$TEAM == "Auburn" & kenbart1$YEAR == 2025] = "#E87722"
 kenbart1$colorpri[kenbart1$TEAM == "Florida" & kenbart1$YEAR == 2025] = "#0021A5"
@@ -35,7 +34,7 @@ gamesplot = ggplot(data = kenbart1, aes(GAMES)) +
   geom_density(aes(fill = "density"),
                kernel = "cosine",
                alpha = 0.3,
-               fill = "#009CDE") +
+               fill = "#009CDE") +    # hex code for NCAA logo blue
   geom_vline(xintercept = 32.9,
              linetype = "dashed",
              color = "purple",

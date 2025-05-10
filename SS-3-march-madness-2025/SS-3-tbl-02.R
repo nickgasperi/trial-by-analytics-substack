@@ -1,12 +1,13 @@
 # load packages
 library(tidyverse)      # data wrangling
-library(gt)              # create tables
+library(gt)             # create tables
 library(gtExtras)       # table formatting
 
 # load data
 kenbart1
 
-# select data for table
+# wrangle data into new tibble to include only selected values for all teams in dataset
+# use filter() to set parameters for which teams meet the criteria of the table
 kball = kenbart1 %>%
   select(YEAR, SEED, TEAM, BARTHAG, WAB) %>%
   filter(BARTHAG > 0.970 & WAB >= 9.5) %>%
