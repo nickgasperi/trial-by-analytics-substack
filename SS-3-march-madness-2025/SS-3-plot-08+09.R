@@ -5,10 +5,11 @@ library(ggimage)          # add images to ggplot
 # load data
 kenbart1
 
-# create composite rank
+# create new variable Composite Rank by averaging two existing variables
 kenbart1$comprank = (kenbart1$`KADJ EM RANK` + kenbart1$`BARTHAG RANK`)/2
 
-# add column to combine team and year
+# create new column that concatenates team name and year
+# there is already a unique ID in the dataset, but it is just a number assinged to each team - 'SQUAD' is created to be included in plots
 kenbart1$SQUAD = paste(kenbart1$TEAM, kenbart1$YEAR, sep = ", ")
 
 # add three blank columns for logos, primary colors, & secondary colors
@@ -33,19 +34,19 @@ kenbart1$colorpri[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "#003087"
 kenbart1$colorsec[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "#000000"
 
 
-# Plot 8 ------------------------------------------------------------------
+# Plot 8 - Final Four Teams ------------------------------------------------------------------
 
 
-# wrannge data into new tibble that includes final four teams from '08-'24 and the '25 final four teams
+# wrangle data into new tibble including only selected variables for all Final Four teams in the dataset
 kenbart88 = kenbart1 %>%
   select(YEAR, ROUND, SEED, TEAM, SQUAD, comprank, logo, colorpri, colorsec) %>%
   filter(ROUND < 5 & YEAR < 2025 | SEED == 1 & YEAR == 2025) %>%
   print(n = Inf)
 
-# plot composite rank of all FF teams
-# use mutate to add color to bars for only 2025 teams
-# use reorder() to reverse the order of the y axis
-# add horizontal line for average rank
+# plot Composite Rank for all FF teams
+# use mutate() to add primary and secondary colors to bars for only 2025 teams
+# use reorder() to reverse the order of the y-axis
+# add dashed horizontal line for average rank
 plot88 = kenbart88 %>%
   mutate(color88pri = ifelse(YEAR == 2025, colorpri, "grey90")) %>%
   mutate(color88sec = ifelse(YEAR == 2025, colorsec, NA)) %>%
@@ -86,10 +87,10 @@ ggsave("SubSt3-plot8-comp-rating.png",
        width = 14, height = 10, dpi = "retina")
 
 
-# Plot 9 ------------------------------------------------------------------
+# Plot 9 - Final Four Teams by Year ------------------------------------------------------------------
 
-
-# new tibble - include all 1 seeds instead of FF teams
+# wrangle data into new tibble including only selected variables for all FF teams in the dataset
+# group by year to change x-axis of ggplot() from individual teams in the prev. plot to average of each tournament
 kenbart90 = kenbart1 %>%
   select(YEAR, SEED, ROUND, comprank, colorpri, colorsec, logo) %>%
   filter(ROUND < 5 & YEAR < 2025 | SEED == 1 & YEAR == 2025) %>%
@@ -97,10 +98,10 @@ kenbart90 = kenbart1 %>%
   summarize(cumrank = mean(comprank)) %>%
   print(n = Inf)
 
-# change YEAR column to character type for easier x axis sorting
+# change YEAR column to character type for easier x-axis sorting
 kenbart90$YEAR = as.character(kenbart90$YEAR)
 
-# recreate plot but with YEAR grouping on x axis
+# plot Composite Rank for each FF team, grouped by year on the x-axis
 # highlight only the 2025 FF group with mutate()
 # use reorder() to reverse the order of the y axis
 plot90 = kenbart90 %>%

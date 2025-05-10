@@ -5,13 +5,14 @@ library(ggimage)          # add images to ggplot
 # load data
 kenbart1
 
-# create new variable Composite Rank
+# create new variable Composite Rank by averaging two existing variables
 kenbart1$comprank = (kenbart1$`KADJ EM RANK` + kenbart1$`BARTHAG RANK`)/2
 
-# add column to use as labels in
+# create new column that concatenates team name and year
+# there is already a unique ID in the dataset, but it is just a number assinged to each team - 'SQUAD' is created to be included in plots
 kenbart1$SQUAD = paste(kenbart1$TEAM, kenbart1$YEAR, sep = ", ")
 
-# add 3 blank columns for logos and team colors
+# add three blank columns for logos, primary colors, & secondary colors
 kenbart1[, "logo"] = NA
 kenbart1[, "colorpri"] = NA
 kenbart1[, "colorsec"] = NA
@@ -22,8 +23,7 @@ kenbart1$logo[kenbart1$TEAM == "Florida"] = "C:/Users/Nick Gasperi/Downloads/flo
 kenbart1$logo[kenbart1$TEAM == "Houston"] = "C:/Users/Nick Gasperi/Downloads/houston-logo.png"
 kenbart1$logo[kenbart1$TEAM == "Duke"] = "C:/Users/Nick Gasperi/Downloads/duke-logo.png"
 
-# insert school primary and secondary colors
-# link to hex codes for all sports: 
+# insert hex codes for school primary and secondary colors 
 kenbart1$colorpri[kenbart1$TEAM == "Auburn" & kenbart1$YEAR == 2025] = "#0C2340"
 kenbart1$colorsec[kenbart1$TEAM == "Auburn" & kenbart1$YEAR == 2025] = "#E87722"
 kenbart1$colorpri[kenbart1$TEAM == "Florida" & kenbart1$YEAR == 2025] = "#0021A5"
@@ -33,17 +33,18 @@ kenbart1$colorsec[kenbart1$TEAM == "Houston" & kenbart1$YEAR == 2025] = "#B2B4B2
 kenbart1$colorpri[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "#003087"
 kenbart1$colorsec[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "#000000"
 
-# agg data
-# includes all 1 seeds 
+## Plot 5 Code - 1-Seeds -----------------------------------------
+
+# wrangle data into new tibble including only selected variables for all 1-seeds in the dataset
 kenbart77 = kenbart1 %>%
   select(YEAR, SEED, TEAM, SQUAD, comprank, colorpri, colorsec, logo) %>%
   filter(SEED == 1) %>%
   print(n = Inf)
 
-# create plot
-# use mutate to add color to bars for only 2025 teams
-# use reorder() to reverse the order of the y axis
-# add horizontal line for average rank
+# plot Composite Rank for each 1-seed
+# use mutate() to add primary and secondary colors to bars for only 2025 teams
+# use reorder() to reverse the order of the y-axis
+# add dashed horizontal line for average rank
 plot77 = kenbart77 %>%
   mutate(color77pri = ifelse(YEAR == 2025, colorpri, "grey90")) %>%
   mutate(color77sec = ifelse(YEAR == 2025, colorsec, NA)) %>%
@@ -57,7 +58,7 @@ plot77 = kenbart77 %>%
   geom_image(aes(image = kenbart77$logo),
              size = 0.055,
              position = position_stack(vjust = 1.05)) +
-  geom_hline(yintercept = max(kenbart77$comprank)-3.904412,
+  geom_hline(yintercept = max(kenbart77$comprank) - 3.904412,
              linetype = "dashed") +
   labs(title = "Barttorvik + Kenpom Composite Power Rank",
        subtitle = "1-Seeds | '08-'25 Tournaments",
@@ -76,14 +77,17 @@ plot77 = kenbart77 %>%
         axis.text.y = element_text(size = 16),
         axis.text.x = element_blank())
 
-# view
+# view plot
 plot77
 
 # save the plot to the device's local files
 ggsave("SubSt3-plot5-comp-rating.png",
        width = 14, height = 10, dpi = "retina")
 
-### same but group by YEAR to find cumulative strength
+## Plot 6 Code - 1-Seeds by Tournament -----------------------------------------
+
+# wrangle data into new tibble including only selected variables for all 1-seeds in the dataset
+# group by year to change x-axis of ggplot() from individual teams in the prev. plot to average of each tournament
 kenbart80 = kenbart1 %>%
   select(YEAR, SEED, comprank, colorpri, colorsec, logo) %>%
   filter(SEED == 1) %>%
@@ -91,10 +95,10 @@ kenbart80 = kenbart1 %>%
   summarize(cumrank = mean(comprank)) %>%
   print(n = Inf)
 
-# change YEAR column to character type for easier x axis sorting
+# change YEAR column to character type for easier x-axis sorting
 kenbart80$YEAR = as.character(kenbart80$YEAR)
 
-# create plot
+# plot Composite Rank for each 1-seed, grouped by year on the x-axis
 # highlight only the 2025 FF group with mutate()
 # use reorder() to reverse the order of the y axis
 plot80 = kenbart80 %>%
