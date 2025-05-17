@@ -14,7 +14,9 @@ kenbart1$logo[kenbart1$TEAM == "Florida" & kenbart1$YEAR == 2025] = "C:/Users/Ni
 kenbart1$logo[kenbart1$TEAM == "Houston" & kenbart1$YEAR == 2025] = "C:/Users/Nick Gasperi/Downloads/houston-logo.png"
 kenbart1$logo[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "C:/Users/Nick Gasperi/Downloads/duke-logo.png"
 
-# plot data
+# plot Tempo vs. Power Rating
+# highlight prev. national champs in purple
+# match point color for 2025 teams to plot background color & add logos with geom_image
 tempoplot2 = kenbart1 %>%
   mutate(color27 = ifelse(ROUND == 1, "purple", ifelse(SEED == 1 & YEAR == 2025, "white", "lightgrey"))) %>%
   mutate(size27 = ifelse(ROUND == 1, 2, 1)) %>%
