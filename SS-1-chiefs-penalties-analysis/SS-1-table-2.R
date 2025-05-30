@@ -5,7 +5,7 @@ library(nflplotR)
 library(nflreadr)
 library(gt)
 
-# load data
+# load data from 2018-2024 NFL seasons
 nfldata2 = load_pbp(2018:2024)
 
 # filter data
@@ -35,12 +35,18 @@ kcplayoffs$post_avg_yds = (c(44.23, 44.32, 34.46, 37.73, 34.54, 39.12))
 
 # filter to drop original total columns
 kcplayoffs = kcplayoffs %>%
-  select(season, games, pen_pg, post_avg_pen, pen_yds_pg, post_avg_yds) %>%
+  select(season,
+         games,
+         pen_pg,
+         post_avg_pen,
+         pen_yds_pg,
+         post_avg_yds) %>%
   print(width = Inf)
 
 # create postseason penalty table
 tblkcplayoffs = gt(kcplayoffs) %>%
-  fmt_number(columns = c(pen_pg, pen_yds_pg),
+  fmt_number(columns = c(pen_pg,
+                         pen_yds_pg),
              decimals = 2) %>%
   cols_label(pen_pg = "penalties",
              post_avg_pen = "nfl_avg_pen",
@@ -49,16 +55,19 @@ tblkcplayoffs = gt(kcplayoffs) %>%
              .fn = md) %>%
   tab_header(title = md("**Postseason Penalties & Penalty Yards by Season**"),
              subtitle = md("**KC vs. NFL Averages**")) %>%
-  tab_spanner(md("*per game*"), c("pen_pg", "post_avg_pen", "pen_yds_pg", "post_avg_yds")) %>%
+  tab_spanner(md("*per game*"),
+              c("pen_pg",
+                "post_avg_pen",
+                "pen_yds_pg",
+                "post_avg_yds")) %>%
   tab_style(style = cell_text(weight = "bold"),
-            locations = cells_body(rows = season == 2023 |
-                                          season == 2022 |
-                                          season == 2019)) %>%
+            locations = cells_body(rows = season == 2023 | season == 2022 | season == 2019)) %>%
   tab_footnote(footnote = md("*bold = won Super Bowl*")) %>%
   tab_footnote(footnote = md("By Nick Gasperi | @tbanalysis | Data @nflfastR"))
 
 # view table
 tblkcplayoffs
 
-# save table
-tblkcplayoffs %>%gtsave("SubSt1.3 - gt_post_pens.png")
+# save table to local files
+tblkcplayoffs %>%
+  gtsave("SubSt1.3 - gt_post_pens.png")

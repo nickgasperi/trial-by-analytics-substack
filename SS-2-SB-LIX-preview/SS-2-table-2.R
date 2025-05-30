@@ -19,7 +19,9 @@ sbqbdata1 = nfldata %>%
          passer_player_name == "P.Mahomes" | passer_player_name == "J.Hurts",
          qb_spike == 0,
          !is.na(passing_yards)) %>%
-  group_by(passer_player_id, passer_player_name, posteam) %>%
+  group_by(passer_player_id,
+           passer_player_name,
+           posteam) %>%
   summarize(avgyds_reg = sum(passing_yards)/5) %>%
   print(n = Inf)
 
@@ -30,7 +32,8 @@ sbqbdata2 = nfldata4 %>%
          passer_player_name == "P.Mahomes" | passer_player_name == "J.Hurts",
          qb_spike == 0,
          !is.na(passing_yards)) %>%
-  group_by(passer_player_id, passer_player_name) %>%
+  group_by(passer_player_id,
+           passer_player_name) %>%
   summarize(avgyds = sum(passing_yards)) %>%
   print(n = Inf)
 
@@ -55,7 +58,11 @@ sbqbdata3$passyd_odds = c(-123, -166)
 # filter out unwanted columns
 sbqbdata3 = sbqbdata3 %>%
   ungroup() %>%
-  select(passer_player_id, avgyds_reg, avgyds_post, passyd_prop, passyd_odds)
+  select(passer_player_id,
+         avgyds_reg,
+         avgyds_post,
+         passyd_prop,
+         passyd_odds)
 
 # create one more tibble to get tot. reg. season passing yds
 # then add games played , then calc avg yd per game
@@ -65,7 +72,8 @@ sbqbdata0 = nfldata %>%
          passer_player_name == "P.Mahomes" | passer_player_name == "J.Hurts",
          qb_spike == 0,
          !is.na(passing_yards)) %>%
-  group_by(passer_player_id, passer_player_name) %>%
+  group_by(passer_player_id,
+           passer_player_name) %>%
   summarize(totyds_reg = sum(passing_yards)) %>%
   print(n = Inf)
 
@@ -77,7 +85,9 @@ sbqbdata0$avgyds_totreg = sbqbdata0$totyds_reg/sbqbdata0$gp_reg
 
 # remove passer name, then view updated tibble
 sbqbdata0 = sbqbdata0 %>%
-  select(passer_player_id, gp_reg, avgyds_totreg) %>%
+  select(passer_player_id,
+         gp_reg,
+         avgyds_totreg) %>%
   print(n = Inf)
 
 # join last column
@@ -101,21 +111,26 @@ sbqbtbl1 = gt(sbqbdata3) %>%
              passyd_prop = "Yards O/U",
              passyd_odds = "Odds") %>%
   cols_align(align = "center") %>%
-  fmt_number(columns = c("avgyds_totreg", "avgyds_reg", "avgyds_post"),
+  fmt_number(columns = c("avgyds_totreg",
+                         "avgyds_reg",
+                         "avgyds_post"),
              decimals = 0) %>%
   tab_header(title = "2025 SUPER BOWL",
              subtitle = "PASSING YARDS O/U") %>%
   tab_spanner(label = "'24 Reg. Season",
-              columns = c("gp_reg", "avgyds_totreg")) %>%
+              columns = c("gp_reg",
+                          "avgyds_totreg")) %>%
   tab_spanner(label = "Since Wk 15",
               columns = "avgyds_reg") %>%
   tab_spanner(label = "Postseason",
               columns = "avgyds_post") %>%
   tab_spanner(label = "@ DraftKings",
-              columns = c("passyd_prop", "passyd_odds")) %>%
+              columns = c("passyd_prop",
+                          "passyd_odds")) %>%
   tab_footnote(footnote = md("By Nick Gasperi | @tbanalysis | Data @nflfastR")) %>%
   tab_options(footnotes.font.size = 9) %>%
-  gt_nfl_headshots(columns = passer_player_id, height = 50) %>%
+  gt_nfl_headshots(columns = passer_player_id,
+                   height = 50) %>%
   gt_theme_espn() %>%
   opt_align_table_header(align = "center") %>%
   tab_style(style = cell_text(weight = "bold"),
@@ -124,6 +139,6 @@ sbqbtbl1 = gt(sbqbdata3) %>%
 # view table
 sbqbtbl1
 
-# save table to device's local files
+# save table to local files
 sbqbtbl1 %>%
   gtsave("SubSt2.4 - gt_sb_passyd.png")

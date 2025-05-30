@@ -14,7 +14,8 @@ nfldata = load_pbp(2024)
 sb1data = nfldata %>%
   filter(posteam == "KC" | posteam == "PHI",
          play_type == "run" | play_type == "pass",
-         qb_kneel == 0, qb_spike == 0,
+         qb_kneel == 0,
+         qb_spike == 0,
          !is.na(epa)) %>%
   group_by(posteam) %>%
   summarize(plays = n(),
@@ -27,7 +28,8 @@ sb1data = nfldata %>%
 sb2data = nfldata %>%
   filter(defteam == "KC" | defteam == "PHI",
          play_type == "run" | play_type == "pass",
-         qb_kneel == 0, qb_spike == 0,
+         qb_kneel == 0,
+         qb_spike == 0,
          !is.na(epa)) %>%
   group_by(defteam) %>%
   summarize(playsdef = n(),
@@ -53,7 +55,13 @@ sb1data$point_diff = sb1data$ppg - sb1data$opp_ppg
 # we will add record in later as a column header
 ## this will allow us to properly format our data in the gt table
 sb1data = sb1data %>%
-  select(team, epaper, passrate, opp_epaper, ppg, opp_ppg, point_diff) %>%
+  select(team,
+         epaper,
+         passrate,
+         opp_epaper,
+         ppg,
+         opp_ppg,
+         point_diff) %>%
   relocate(passrate, .after = opp_epaper)
 
 # view updated tibble
@@ -79,8 +87,12 @@ t_sb1data = t_sb1data %>% slice(-1)
 colnames(t_sb1data) = c("Chiefs", "Eagles")
 
 # gt does not include row titles, so create new column to serve as row titles
-t_sb1data$rownames = c("EPA/Play", "Opp. EPA/Play", "Pass Rate",
-                       "PPG", "Opp. PPG", "Net PPG")
+t_sb1data$rownames = c("EPA/Play",
+                       "Opp. EPA/Play",
+                       "Pass Rate",
+                       "PPG",
+                       "Opp. PPG",
+                       "Net PPG")
 
 # convert back to tibble
 t_sb1data = as_tibble(t_sb1data)
@@ -94,7 +106,7 @@ t_sb1data
 
 # create table
 sbtbl1 = gt(t_sb1data) %>%
-  cols_move(columns = c("Chiefs","Eagles"),
+  cols_move(columns = c("Chiefs", "Eagles"),
             after = rownames) %>%
   cols_label(rownames = "Record",
              Chiefs = "17-2",
@@ -118,6 +130,6 @@ sbtbl1 = gt(t_sb1data) %>%
 # view table
 sbtbl1
 
-# save table to device's local files
+# save table to local files
 sbtbl1 %>%
   gtsave("SubSt2.3 - gt_sb_preview.png")

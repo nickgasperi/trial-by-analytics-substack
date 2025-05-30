@@ -4,7 +4,7 @@ library(nflfastR)
 library(nflplotR)
 library(nflreadr)
 
-# load data
+# load data from 2018-2024 NFL seasons
 nfldata2 = load_pbp(2018:2024)
 
 # summarize penalties and penalty yards by team in reg season games
@@ -23,22 +23,31 @@ penplot1 = pendata1 %>%
   mutate(pencolor1 = ifelse(penalty_team == "KC", NA, "b/w")) %>%
   mutate(penwidth = ifelse(penalty_team == "KC", 0.065, 0.05)) %>%
   ggplot(aes(x = penalties, y = penyd)) +
-  geom_hline(yintercept = mean(pendata1$penyd), linetype = "dashed") +
-  geom_vline(xintercept = mean(pendata1$penalties), linetype = "dashed") +
-  geom_smooth(method = "lm", se = FALSE, color = "grey") +
-  geom_nfl_logos(aes(team_abbr = penalty_team, color = pencolor1, width = penwidth),
+  geom_hline(yintercept = mean(pendata1$penyd),
+             linetype = "dashed") +
+  geom_vline(xintercept = mean(pendata1$penalties),
+             linetype = "dashed") +
+  geom_smooth(method = "lm", se = FALSE,
+              color = "grey") +
+  geom_nfl_logos(aes(team_abbr = penalty_team,
+                     color = pencolor1,
+                     width = penwidth),
                  alpha = 0.8) +
   scale_color_identity() +
   labs(title = "Cumulative Penalties & Penalty Yards By Team",
        subtitle = "2018-2024 Regular Seasons",
        caption = "By Nick Gasperi | @tbanalysis | Data @nflfastR",
-       x = "# of Penalties", y = "Total Penalty Yards") +
+       x = "# of Penalties",
+       y = "Total Penalty Yards") +
   theme_minimal() +
   theme(plot.background = element_rect(fill = "#F0F0F0"),
-        plot.title = element_text(face = "bold", size = 18),
-        plot.subtitle = element_text(face = "bold", size = 16),
+        plot.title = element_text(face = "bold",
+                                  size = 18),
+        plot.subtitle = element_text(face = "bold",
+                                     size = 16),
         plot.caption = element_text(size = 11),
-        axis.title = element_text(face = "bold", size = 15),
+        axis.title = element_text(face = "bold",
+                                  size = 15),
         axis.text = element_text(size = 15))
 
 # view plot
@@ -46,4 +55,5 @@ penplot1
 
 # save plot to device's local files
 ggsave("SubSt1.1 - reg_szn_pens.png",
-       width = 10.5, height = 7, dpi = "retina")
+       width = 10.5, height = 7,
+       dpi = "retina")

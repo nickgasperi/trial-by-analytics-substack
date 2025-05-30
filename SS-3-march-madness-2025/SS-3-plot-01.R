@@ -1,6 +1,6 @@
 # load packages
-library(tidyverse)    # data wrangling
-library(readxl)       # importing data
+library(tidyverse)
+library(readxl)
 
 # convert dataframe to tibble
 kenbart1 = as_tibble(kenbart)
@@ -26,7 +26,8 @@ wabexample = kenbart1 %>%
   theme_minimal() +
   theme(plot.background = element_rect(fill = "white"),
         plot.title = element_text(hjust = 0.5,
-                                  face = "bold.italic", size = 20),
+                                  face = "bold.italic",
+                                  size = 20),
         plot.subtitle = element_text(hjust = 0.5,
                                      face = "bold.italic",
                                      size = 18),
@@ -40,6 +41,7 @@ wabexample = kenbart1 %>%
 # view plot
 wabexample
 
-# save plot to device's local files
+# save plot to local files
 ggsave("SS-3-plot1-wab_example.png",
-       width = 12, height = 9, dpi = "retina")
+       width = 12, height = 9, 
+       dpi = "retina")

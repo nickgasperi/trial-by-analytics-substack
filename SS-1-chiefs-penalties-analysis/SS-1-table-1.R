@@ -5,7 +5,7 @@ library(nflplotR)
 library(nflreadr)
 library(gt)
 
-# load data
+# load data from 2018-2024 NFL seasons
 nfldata2 = load_pbp(2018:2024)
 
 # filter data
@@ -41,10 +41,16 @@ chiefsgr = chiefsgr %>%
 tblchiefsgr = gt(chiefsgr) %>%
   tab_header(title = md("**Penalties & Penalty Yards by Season**"),
              subtitle = md("**KC vs. NFL Averages**")) %>%
-  tab_spanner("KC", c("season", "penalties", "nfl_avg_p", "diff_pen",
-                      "pen_yds", "nfl_avg_y", "diff_yds")) %>%
+  tab_spanner("KC", c("season",
+                      "penalties",
+                      "nfl_avg_p",
+                      "diff_pen",
+                      "pen_yds",
+                      "nfl_avg_y",
+                      "diff_yds")) %>%
   tab_footnote(footnote = md("*By Nick Gasperi | @tbanalysis | Data @nflfastR*")) %>%
   gt_nfl_wordmarks(locations = cells_column_spanners("KC"))
 
-# save table
-tblchiefsgr %>% gtsave("SubSt1.2 - gt_pens.png")
+# save table to local files
+tblchiefsgr %>%
+  gtsave("SubSt1.2 - gt_pens.png")

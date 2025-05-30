@@ -4,7 +4,7 @@ library(nflfastR)
 library(nflplotR)
 library(nflreadr)
 
-# load data
+# load 2024 NFL data
 nfldata = load_pbp(2024)
 
 # summarize regular season penalty yards by team
@@ -52,25 +52,37 @@ allpenyd = regpen1 %>%
 
 # plot regular season data
 plotregpen5 = ggplot(data = allpenyd) +
-  geom_nfl_logos(mapping = aes(team_abbr = penalty_team, x = rankpenyd, y = reorder(penalty_team, -rankpenyd)),
+  geom_nfl_logos(mapping = aes(team_abbr = penalty_team,
+                               x = rankpenyd,
+                               y = reorder(penalty_team, -rankpenyd)),
                                width = 0.04) +
-  geom_segment(aes(x =rankpenyd, xend = rank4penyd,
-                   y = penalty_team, yend = penalty_team,
+  geom_segment(aes(x = rankpenyd,
+                   xend = rank4penyd,
+                   y = penalty_team,
+                   yend = penalty_team,
                    color = penalty_team),
-               linewidth = 1, alpha = 0.85) +
-  geom_point(mapping = aes(x = rank4penyd, y = penalty_team, color = penalty_team), size = 2) +
+               linewidth = 1,
+               alpha = 0.85) +
+  geom_point(mapping = aes(x = rank4penyd,
+                           y = penalty_team,
+                           color = penalty_team),
+             size = 2) +
   scale_color_nfl(type = "primary") +
   scale_x_reverse(breaks = seq(1, 32, 1)) +
   labs(title = "2024 NFL Reg. Season Total Penalty Yards",
        subtitle = "Logo = Season Total | Point = 4th Quarter Only",
        caption = "By Nick Gasperi | @tbanalysis | Data @nflfastR",
-       x = "Rank", y = "Penalty Yards") +
+       x = "Rank",
+       y = "Penalty Yards") +
   theme_minimal() +
   theme(plot.background = element_rect(fill = "#F0F0F0"),
-        plot.title = element_text(face = "bold", size = 18),
-        plot.subtitle = element_text(face = "bold", size = 15),
+        plot.title = element_text(face = "bold",
+                                  size = 18),
+        plot.subtitle = element_text(face = "bold",
+                                     size = 15),
         plot.caption = element_text(size = 11),
-        axis.title = element_text(face = "bold.italic", size = 12),
+        axis.title = element_text(face = "bold.italic",
+                                  size = 12),
         axis.text.x = element_text(size = 12),
         axis.text.y = element_blank())
 
@@ -79,4 +91,5 @@ plotregpen5
 
 # save plot to device's local files
 ggsave("X post 46 - reg_penyd.png",
-       width = 10.5, height = 7, dpi = "retina")
+       width = 10.5, height = 7,
+       dpi = "retina")

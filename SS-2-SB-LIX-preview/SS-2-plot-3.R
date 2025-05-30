@@ -1,9 +1,9 @@
 # load packages
-library(tidyverse)      # data wrangling
+library(tidyverse)
 library(nflfastR)
 library(nflplotR)
 library(nflreadr)
-library(ggrepel)        # replaces geom_text() when plotting
+library(ggrepel)
 
 # pull 2024 NFL game results
 schedules1 = fast_scraper_schedules(2024)
@@ -13,7 +13,13 @@ schedules1 = fast_scraper_schedules(2024)
 teamstats2 = schedules1 %>%
   filter(week < 22,
          home_team == "KC" | away_team == "KC") %>%
-  select(game_type, week, away_team, away_score, home_team, home_score, result) %>%
+  select(game_type,
+         week,
+         away_team,
+         away_score,
+         home_team,
+         home_score,
+         result) %>%
   print(n = Inf)
 
 # add kc cum_result column
@@ -38,7 +44,13 @@ teamstatskc = teamstats2 %>%
 teamstats3 = schedules1 %>%
   filter(week < 22,
          home_team == "PHI" | away_team == "PHI") %>%
-  select(game_type, week, away_team, away_score, home_team, home_score, result) %>%
+  select(game_type,
+         week,
+         away_team,
+         away_score,
+         home_team,
+         home_score,
+         result) %>%
   print(n = Inf)
 
 # add phi cum_result column
@@ -71,7 +83,8 @@ frameteams5 = teamstats5 %>%
   filter(week == 21)
 
 # plot data
-scorediff1 = ggplot(data = teamstats5, aes(x = week, y = cum_result)) +
+scorediff1 = ggplot(data = teamstats5,
+                    aes(x = week, y = cum_result)) +
   geom_line(aes(color = team),
             linewidth = 1.5) +
   geom_point(data = frameteams5,
@@ -89,19 +102,24 @@ scorediff1 = ggplot(data = teamstats5, aes(x = week, y = cum_result)) +
   labs(title = "Cumulative Point Differential - KC vs. PHI",
        subtitle = "2024 Regular & Post Season",
        caption = "By Nick Gasperi | @tbanalysis | Data @nflfastR",
-       x = "Week", y = "Point Differential") +
+       x = "Week",
+       y = "Point Differential") +
   theme_minimal() +
   theme(plot.background = element_rect(fill = "#F0F0F0"),
-        plot.title = element_text(face = "bold", size = 22),
-        plot.subtitle = element_text(face = "bold", size = 20),
+        plot.title = element_text(face = "bold",
+                                  size = 22),
+        plot.subtitle = element_text(face = "bold",
+                                     size = 20),
         plot.caption = element_text(size = 11),
-        axis.title = element_text(face = "bold", size = 15),
+        axis.title = element_text(face = "bold",
+                                  size = 15),
         axis.text = element_text(size = 15))
 
 # view plot
 scorediff1
 
-# save plot to device's local files
+# save plot to local files
 ggsave("SubSt2.7 - point_diff.png",
-       width = 10.5, height = 7.5, dpi = "retina")
+       width = 10.5, height = 7.5,
+       dpi = "retina")
   

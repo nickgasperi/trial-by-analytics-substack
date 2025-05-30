@@ -38,7 +38,10 @@ sbtdsdata
 
 # drop columns not needed in table, then view updated tibble
 sbtdsdata = sbtdsdata %>%
-  select(td_player_id, td, tdperg, tdodds) %>%
+  select(td_player_id,
+         td,
+         tdperg,
+         tdodds) %>%
   print(n = Inf)
 
 # ungroup data & order by most tot. tds
@@ -58,12 +61,14 @@ sbtdsplot1 = gt(sbtdsdata) %>%
   tab_header(title = "2025 SUPER BOWL",
              subtitle = "ANYTIME TD ODDS") %>%
   tab_spanner(label = "'24 Reg & Post Season",
-              columns = c("td", "tdperg")) %>%
+              columns = c("td",
+                          "tdperg")) %>%
   tab_spanner(label = "@ Caesars",
               columns = "tdodds") %>%
   tab_footnote(footnote = md("By Nick Gasperi | @tbanalysis | Data @nflfastR")) %>%
   tab_options(footnotes.font.size = 12) %>%
-  gt_nfl_headshots(columns = "td_player_id", height = 65) %>%
+  gt_nfl_headshots(columns = "td_player_id",
+                   height = 65) %>%
   gt_theme_espn() %>%
   opt_align_table_header(align = "center") %>%
   tab_style(style = cell_text(weight = "bold"),
@@ -72,7 +77,8 @@ sbtdsplot1 = gt(sbtdsdata) %>%
 # view table
 sbtdsplot1
 
-# save table to device's local files
+# save table to local files
 # use 'expand' to prevent sides of table from being cut out of .png export
 sbtdsplot1 %>%
-  gtsave("SubSt2.6 - gt_sb_td_odds.png", expand = 12)
+  gtsave("SubSt2.6 - gt_sb_td_odds.png",
+         expand = 12)

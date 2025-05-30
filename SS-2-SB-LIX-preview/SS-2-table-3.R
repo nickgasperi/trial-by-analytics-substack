@@ -19,7 +19,8 @@ sbwrdata1 = nfldata %>%
          receiver_player_name == "D.Hopkins" | receiver_player_name == "N.Gray" |
          receiver_player_name == "A.Brown" | receiver_player_name == "D.Smith" |
          receiver_player_name == "D.Goedert" | receiver_player_name == "S.Barkley") %>%
-  group_by(receiver_player_id, receiver_player_name) %>%
+  group_by(receiver_player_id,
+           receiver_player_name) %>%
   summarize(targets_reg = n()) %>%
   print(n = Inf)
 
@@ -33,7 +34,8 @@ sbwrdata2 = nfldata %>%
            receiver_player_name == "D.Hopkins" | receiver_player_name == "N.Gray" |
            receiver_player_name == "A.Brown" | receiver_player_name == "D.Smith" |
            receiver_player_name == "D.Goedert" | receiver_player_name == "S.Barkley") %>%
-  group_by(receiver_player_id, receiver_player_name) %>%
+  group_by(receiver_player_id,
+           receiver_player_name) %>%
   summarize(rec_reg = n()) %>%
   print(n = Inf)
 
@@ -49,7 +51,9 @@ sbwrdata3$rec_per_reg = sbwrdata3$rec_reg/sbwrdata3$gp_reg
 
 # filter out unwanted columns
 sbwrdata3 = sbwrdata3 %>%
-  select(receiver_player_id, targets_per_reg, rec_per_reg) %>%
+  select(receiver_player_id,
+         targets_per_reg,
+         rec_per_reg) %>%
   print(n = Inf)
 
 # repeat the same tibbles, but include only data since week 15
@@ -62,7 +66,8 @@ sbwrdata4 = nfldata %>%
          receiver_player_name == "D.Hopkins" | receiver_player_name == "N.Gray" |
          receiver_player_name == "A.Brown" | receiver_player_name == "D.Smith" |
          receiver_player_name == "D.Goedert" | receiver_player_name == "S.Barkley") %>%
-  group_by(receiver_player_id, receiver_player_name) %>%
+  group_by(receiver_player_id,
+           receiver_player_name) %>%
   summarize(targets_late = n()) %>%
   print(n = Inf)
 
@@ -76,7 +81,8 @@ sbwrdata5 = nfldata %>%
            receiver_player_name == "D.Hopkins" | receiver_player_name == "N.Gray" |
            receiver_player_name == "A.Brown" | receiver_player_name == "D.Smith" |
            receiver_player_name == "D.Goedert" | receiver_player_name == "S.Barkley") %>%
-  group_by(receiver_player_id, receiver_player_name) %>%
+  group_by(receiver_player_id,
+           receiver_player_name) %>%
   summarize(rec_late = n()) %>%
   print(n = Inf)
 
@@ -92,7 +98,9 @@ sbwrdata6$rec_per_late = sbwrdata6$rec_late/sbwrdata6$gp_late
 
 # filter out unwanted columns
 sbwrdata6 = sbwrdata6 %>%
-  select(receiver_player_id, targets_per_late, rec_per_late) %>%
+  select(receiver_player_id,
+         targets_per_late,
+         rec_per_late) %>%
   print(n = Inf)
 
 # join tibbles 3 and 6
@@ -118,19 +126,26 @@ sbwrplot1 = gt(sbwrdata7) %>%
              rec_ou = "Rec O/U",
              rec_odds = "Odds") %>%
   cols_align(align = "center") %>%
-  fmt_number(columns = c("targets_per_reg", "rec_per_reg", "targets_per_late", "rec_per_late"),
+  fmt_number(columns = c("targets_per_reg",
+                         "rec_per_reg",
+                         "targets_per_late",
+                         "rec_per_late"),
              decimals = 0) %>%
   tab_header(title = "2025 SUPER BOWL",
              subtitle = "RECEPTIONS O/U") %>%
   tab_spanner(label = "'24 Reg. Season",
-              columns = c("targets_per_reg", "rec_per_reg")) %>%
+              columns = c("targets_per_reg",
+                          "rec_per_reg")) %>%
   tab_spanner(label = "Since Wk 15",
-              columns = c("targets_per_late", "rec_per_late")) %>%
+              columns = c("targets_per_late",
+                          "rec_per_late")) %>%
   tab_spanner(label = "@ DraftKings",
-              columns = c("rec_ou", "rec_odds")) %>%
+              columns = c("rec_ou",
+                          "rec_odds")) %>%
   tab_footnote(footnote = md("By Nick Gasperi | @tbanalysis | Data @nflfastR")) %>%
   tab_options(footnotes.font.size = 11) %>%
-  gt_nfl_headshots("receiver_player_id", height = 60) %>%
+  gt_nfl_headshots("receiver_player_id",
+                   height = 60) %>%
   gt_theme_espn() %>%
   opt_align_table_header(align = "center") %>%
   tab_style(style = cell_text(weight = "bold"),
