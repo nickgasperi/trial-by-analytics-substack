@@ -1,14 +1,15 @@
 # load packages
-library(tidyverse)    # data wrangling
-library(ggrepel)      # replaces geom_text()
-library(ggimage)      # replaces geom_text_repel() for 2025 data points
+library(tidyverse)
+library(ggrepel)
+library(ggimage)
 
 # load data
 kenbart1
 
 # wrangle data into new tibble with only national champions since 2008 and the 2025 final 4 teams
 kbchamps = kenbart1 %>%
-  filter(ROUND == 1 | YEAR == 2025 & SEED == 1) %>%
+  filter(ROUND == 1 | YEAR == 2025
+         & SEED == 1) %>%
   print(n = Inf)
 
 # insert blank column for logos
@@ -44,16 +45,21 @@ champsplot1 = kbchamps %>%
   theme(legend.position = "none",
         plot.background = element_rect(fill = "white"),
         plot.title = element_text(hjust = 0.5,
-                                  face = "bold.italic", size = 24),
+                                  face = "bold.italic",
+                                  size = 24),
         plot.subtitle = element_text(hjust = 0.5,
-                                     face = "bold.italic", size = 22),
+                                     face = "bold.italic",
+                                     size = 22),
         plot.caption = element_text(size = 11),
-        axis.title = element_text(face = "bold", size = 16),
+        axis.title = element_text(face = "bold",
+                                  size = 16),
         axis.text = element_text(size = 16))
 
 # view plot
 champsplot1
 
-# save the plot to the device's local files
+# save plot to local files
 ggsave("SS3-plot16-barthag_eff_champs.png",
-       width = 14, height = 10, dpi = "retina")
+       width = 14,
+       height = 10,
+       dpi = "retina")

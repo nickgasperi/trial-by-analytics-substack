@@ -1,6 +1,6 @@
 # load packages
-library(tidyverse)        # data wrangling
-library(ggimage)          # add images to ggplot
+library(tidyverse)
+library(ggimage)
 
 # load data
 kenbart1
@@ -28,16 +28,20 @@ heightplot = kenbart1 %>%
   labs(title = "Avg. Experience vs. Avg. Height",
        subtitle = "National Champions | '08-'25 Tournament Teams",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
-       x = "EXPERIENCE", y = "HEIGHT") +
+       x = "EXPERIENCE",
+       y = "HEIGHT") +
   theme_minimal() +
   theme(legend.position = "none",
         plot.background = element_rect(fill = "white"),
         plot.title = element_text(hjust = 0.5,
-                                  size = 24, face = "bold.italic"),
+                                  size = 24,
+                                  face = "bold.italic"),
         plot.subtitle = element_text(hjust = 0.5,
-                                     size = 22, face = "bold.italic"),
+                                     size = 22,
+                                     face = "bold.italic"),
         plot.caption = element_text(size = 12),
-        axis.title = element_text(size = 16, face = "bold"),
+        axis.title = element_text(size = 16,
+                                  face = "bold"),
         axis.text = element_text(size = 16))
 
 # view plot
@@ -45,4 +49,6 @@ heightplot
 
 # save plot to device's local files
 ggsave("SS3-plot10-exp_height.png",
-       width = 14, height = 10, dpi = "retina")
+       width = 14,
+       height = 10,
+       dpi = "retina")

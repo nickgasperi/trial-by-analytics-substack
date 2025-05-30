@@ -1,6 +1,6 @@
 # load packages
-library(tidyverse)        # data wrangling
-library(ggimage)          # add images to ggplot
+library(tidyverse)
+library(ggimage)
 
 # load data
 kenbart1
@@ -20,7 +20,9 @@ sosplot = kenbart1 %>%
   mutate(size7 = ifelse(ROUND == 1, 7, 1)) %>%
   ggplot(aes(x = YEAR, y = `ELITE SOS RANK`)) +
   geom_hline(yintercept = 28.25,
-             linetype = "dashed", color = "red", linewidth = 1.25) +
+             linetype = "dashed",
+             color = "red",
+             linewidth = 1.25) +
   geom_point(aes(color = color7,
                  size = size7)) +
   scale_color_identity() +
@@ -35,16 +37,21 @@ sosplot = kenbart1 %>%
   theme(legend.position = "none",
         plot.background = element_rect(fill = "white"),
         plot.title = element_text(hjust = 0.5,
-                                  size = 22, face = "bold.italic"),
+                                  size = 22,
+                                  face = "bold.italic"),
         plot.subtitle = element_text(hjust = 0.5,
-                                     size = 20, face = "bold.italic"),
+                                     size = 20,
+                                     face = "bold.italic"),
         plot.caption = element_text(size = 10),
-        axis.title = element_text(size = 16, face = "bold"),
+        axis.title = element_text(size = 16,
+                                  face = "bold"),
         axis.text = element_text(size = 16))
 
 # view plot
 sosplot  
 
-# save the plot to the device's local files
+# save plot to local files
 ggsave("SS3-plot12-sos_plot.png",
-       width = 12, height = 9, dpi = "retina")
+       width = 12,
+       height = 9,
+       dpi = "retina")

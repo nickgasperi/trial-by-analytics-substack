@@ -1,6 +1,6 @@
 # load packages
-library(tidyverse)        # data wrangling
-library(ggimage)          # add images to ggplot
+library(tidyverse)
+library(ggimage)
 
 # load data
 kenbart1
@@ -37,7 +37,14 @@ kenbart1$colorsec[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "#000000"
 
 # wrangle data into new tibble including only selected variables for all 1-seeds in the dataset
 kenbart77 = kenbart1 %>%
-  select(YEAR, SEED, TEAM, SQUAD, comprank, colorpri, colorsec, logo) %>%
+  select(YEAR,
+         SEED,
+         TEAM,
+         SQUAD,
+         comprank,
+         colorpri,
+         colorsec,
+         logo) %>%
   filter(SEED == 1) %>%
   print(n = Inf)
 
@@ -63,17 +70,21 @@ plot77 = kenbart77 %>%
   labs(title = "Barttorvik + Kenpom Composite Power Rank",
        subtitle = "1-Seeds | '08-'25 Tournaments",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
-       x = "TEAM", y = "COMPOSITE RANK") +
+       x = "TEAM",
+       y = "COMPOSITE RANK") +
   scale_y_discrete(breaks = c(1, 1.5, 2, 2.5, 3, 3.5, 4, 17.5)) +
   theme_minimal() +
   theme(panel.grid = element_line(color = "white"),
         plot.background = element_rect(fill = "white"),
                 plot.title = element_text(hjust = 0.5,
-                                  size = 24, face = "bold.italic"),
+                                  size = 24,
+                                  face = "bold.italic"),
         plot.subtitle = element_text(hjust = 0.5,
-                                     size = 22, face = "bold.italic"),
+                                     size = 22,
+                                     face = "bold.italic"),
         plot.caption = element_text(size = 12),
-        axis.title = element_text(size = 16, face = "bold"),
+        axis.title = element_text(size = 16,
+                                  face = "bold"),
         axis.text.y = element_text(size = 16),
         axis.text.x = element_blank())
 
@@ -82,14 +93,21 @@ plot77
 
 # save the plot to the device's local files
 ggsave("SubSt3-plot5-comp-rating.png",
-       width = 14, height = 10, dpi = "retina")
+       width = 14,
+       height = 10,
+       dpi = "retina")
 
 ## Plot 6 Code - 1-Seeds by Tournament -----------------------------------------
 
 # wrangle data into new tibble including only selected variables for all 1-seeds in the dataset
 # group by year to change x-axis of ggplot() from individual teams in the prev. plot to average of each tournament
 kenbart80 = kenbart1 %>%
-  select(YEAR, SEED, comprank, colorpri, colorsec, logo) %>%
+  select(YEAR,
+         SEED,
+         comprank,
+         colorpri,
+         colorsec,
+         logo) %>%
   filter(SEED == 1) %>%
   group_by(YEAR) %>%
   summarize(cumrank = mean(comprank)) %>%
@@ -110,22 +128,28 @@ plot80 = kenbart80 %>%
   labs(title = "Barttorvik + Kenpom Composite Power Rank",
        subtitle = "1-Seeds by Year | '08-'25 Tournaments",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
-       x = "YEAR", y = "COMPOSITE RANK") +
+       x = "YEAR",
+       y = "COMPOSITE RANK") +
   theme_minimal() +
   theme(plot.background = element_rect(fill = "white"),
         panel.grid.major.x = element_line(color = "white"),
         panel.grid.major.y = element_line(color = "grey"),
         plot.title = element_text(hjust = 0.5,
-                                  size = 24, face = "bold.italic"),
+                                  size = 24,
+                                  face = "bold.italic"),
         plot.subtitle = element_text(hjust = 0.5,
-                                     size = 22, face = "bold.italic"),
+                                     size = 22,
+                                     face = "bold.italic"),
         plot.caption = element_text(size = 12),
-        axis.title = element_text(size = 16, face = "bold"),
+        axis.title = element_text(size = 16,
+                                  face = "bold"),
         axis.text = element_text(size = 16))
 
 # view plot
 plot80
 
-# save the plot to the device's local files
+# save plot to local files
 ggsave("SS3-plot6-comp-rating-group.png",
-       width = 14, height = 10, dpi = "retina")
+       width = 14,
+       height = 10,
+       dpi = "retina")

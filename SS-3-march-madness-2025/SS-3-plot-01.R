@@ -43,5 +43,6 @@ wabexample
 
 # save plot to local files
 ggsave("SS-3-plot1-wab_example.png",
-       width = 12, height = 9, 
+       width = 12,
+       height = 9, 
        dpi = "retina")

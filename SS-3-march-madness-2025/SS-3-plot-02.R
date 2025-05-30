@@ -1,6 +1,6 @@
 # load packages
-library(tidyverse)        # data wrangling
-library(ggimage)          # add images to ggplot
+library(tidyverse)
+library(ggimage)
 
 # load data
 kenbart1
@@ -24,7 +24,8 @@ kenbart2025$logo[kenbart2025$TEAM == "Duke"] = "C:/Users/Nick Gasperi/Downloads/
 power1 = kenbart2025 %>%
   mutate(pointcolor2 = ifelse(SEED > 1, "darkgrey", "white")) %>%
   ggplot(aes(x = BARTHAG, y = WAB)) +
-  geom_smooth(method = "lm", se = FALSE,
+  geom_smooth(method = "lm",
+              se = FALSE,
               color = "grey27") +
   geom_point(aes(color = pointcolor2),
              size = 3) +
@@ -38,16 +39,21 @@ power1 = kenbart2025 %>%
   theme(legend.position = "none",
         plot.background = element_rect(fill = "white"),
         plot.title = element_text(hjust = 0.5,
-                                  size = 24, face = "bold.italic"),
+                                  size = 24,
+                                  face = "bold.italic"),
         plot.subtitle = element_text(hjust = 0.5,
-                                     size = 21, face = "bold.italic"),
+                                     size = 21,
+                                     face = "bold.italic"),
         plot.caption = element_text(size = 11),
-        axis.title = element_text(size = 16, face = "bold"),
+        axis.title = element_text(size = 16,
+                                  face = "bold"),
         axis.text = element_text(size = 16))
 
 # view plot
 power1
 
-# save the plot to the device's local files
+# save the plot to local files
 ggsave("SS3-plot2-barthag_wab.png",
-       width = 14, height = 10, dpi = "retina")
+       width = 14,
+       height = 10,
+       dpi = "retina")

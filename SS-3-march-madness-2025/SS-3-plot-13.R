@@ -1,6 +1,6 @@
 # load packages
-library(tidyverse)        # data wrangling
-library(ggrepel)          # replaces geom_text()
+library(tidyverse)
+library(ggrepel)
 
 # load data
 kenbart1
@@ -44,6 +44,8 @@ champs2 = kenbart1 %>%
 # view plot
 champs2
 
-# save the plot to the device's local files
+# save plot to local files
 ggsave("SS3-plot13-champs_bio.png",
-       width = 14, height = 10, dpi = "retina")
+       width = 14,
+       height = 10,
+       dpi = "retina")

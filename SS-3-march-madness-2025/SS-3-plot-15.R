@@ -1,6 +1,6 @@
 # load packages
-library(tidyverse)        # data wrangling
-library(ggimage)          # replaces geom_point() for 2025 teams
+library(tidyverse)
+library(ggimage)
 
 # load data
 kenbart1
@@ -34,7 +34,8 @@ kenbart1$colorsec[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "#000000"
 
 # wrangle data into new tibble that includes only 2025 FF and prev. national champs
 kenbartchamps = kenbart1 %>%
-  filter(ROUND == 1 | SEED == 1 & YEAR == 2025) %>%
+  filter(ROUND == 1 | SEED == 1
+         & YEAR == 2025) %>%
   print(n = Inf)
 
 # plot data
@@ -62,22 +63,28 @@ plot24 = kenbartchamps %>%
   labs(title = "Barttorvik + Kenpom Composite Power Rank",
        subtitle = "National Champions | '08-'25 Tournaments",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
-       x = "TEAM", y = "COMPOSITE RANK") +
+       x = "TEAM",
+       y = "COMPOSITE RANK") +
   theme_minimal() +
   theme(panel.grid = element_line(color = "white"),
         plot.background = element_rect(fill = "white"),
         plot.title = element_text(hjust = 0.5,
-                                  size = 24, face = "bold.italic"),
+                                  size = 24,
+                                  face = "bold.italic"),
         plot.subtitle = element_text(hjust = 0.5,
-                                     size = 22, face = "bold.italic"),
+                                     size = 22,
+                                     face = "bold.italic"),
         plot.caption = element_text(size = 12),
-        axis.title = element_text(size = 16, face = "bold"),
+        axis.title = element_text(size = 16,
+                                  face = "bold"),
         axis.text.y = element_text(size = 16),
         axis.text.x = element_blank())
 
 # view plot
 plot24
     
-# save the plot to the device's local files
+# save plot to local files
 ggsave("SS3-plot15-comp-rating-champs.png",
-       width = 14, height = 10, dpi = "retina")
+       width = 14,
+       height = 10,
+       dpi = "retina")

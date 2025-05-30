@@ -1,7 +1,7 @@
 # load packages
-library(tidyverse)      # data wrangling
-library(gt)             # create tables
-library(gtExtras)       # table formatting
+library(tidyverse)
+library(gt)
+library(gtExtras)
 
 # load data
 kenbart1
@@ -9,8 +9,13 @@ kenbart1
 # wrangle data into new tibble to include only selected values for all teams in dataset
 # use filter() to set parameters for which teams meet the criteria of the table
 kball = kenbart1 %>%
-  select(YEAR, SEED, TEAM, BARTHAG, WAB) %>%
-  filter(BARTHAG > 0.970 & WAB >= 9.5) %>%
+  select(YEAR,
+         SEED,
+         TEAM,
+         BARTHAG,
+         WAB) %>%
+  filter(BARTHAG > 0.970
+         & WAB >= 9.5) %>%
   arrange(-BARTHAG)
 
 # create table
@@ -28,6 +33,6 @@ tbloneseed = gt(kball) %>%
 # view table
 tbloneseed
 
-# save table to device's local files
+# save table to local files
 tbloneseed %>%
   gtsave("Sub3.2-gt_barthag_wab.png")

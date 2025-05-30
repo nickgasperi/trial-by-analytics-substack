@@ -1,6 +1,6 @@
 # load packages
-library(tidyverse)        # data wrangling
-library(ggimage)          # add images to ggplot
+library(tidyverse)
+library(ggimage)
 
 # load data
 kenbart1
@@ -39,8 +39,18 @@ kenbart1$colorsec[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "#000000"
 
 # wrangle data into new tibble including only selected variables for all Final Four teams in the dataset
 kenbart88 = kenbart1 %>%
-  select(YEAR, ROUND, SEED, TEAM, SQUAD, comprank, logo, colorpri, colorsec) %>%
-  filter(ROUND < 5 & YEAR < 2025 | SEED == 1 & YEAR == 2025) %>%
+  select(YEAR,
+         ROUND,
+         SEED,
+         TEAM,
+         SQUAD,
+         comprank,
+         logo,
+         colorpri,
+         colorsec) %>%
+  filter(ROUND < 5
+         & YEAR < 2025 | SEED == 1
+         & YEAR == 2025) %>%
   print(n = Inf)
 
 # plot Composite Rank for all FF teams
@@ -66,16 +76,20 @@ plot88 = kenbart88 %>%
   labs(title = "Barttorvik + Kenpom Composite Power Rank",
        subtitle = "Final Four Teams | '08-'25 Tournaments",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
-       x = "TEAM", y = "COMPOSITE RANK") +
+       x = "TEAM",
+       y = "COMPOSITE RANK") +
   theme_minimal() +
   theme(panel.grid = element_line(color = "white"),
         plot.background = element_rect(fill = "white"),
         plot.title = element_text(hjust = 0.5,
-                                  size = 24, face = "bold.italic"),
+                                  size = 24,
+                                  face = "bold.italic"),
         plot.subtitle = element_text(hjust = 0.5,
-                                     size = 22, face = "bold.italic"),
+                                     size = 22,
+                                     face = "bold.italic"),
         plot.caption = element_text(size = 12),
-        axis.title = element_text(size = 16, face = "bold"),
+        axis.title = element_text(size = 16,
+                                  face = "bold"),
         axis.text.y = element_text(size = 16),
         axis.text.x = element_blank())
 
@@ -84,7 +98,9 @@ plot88
 
 # save the plot to the device's local files
 ggsave("SubSt3-plot8-comp-rating.png",
-       width = 14, height = 10, dpi = "retina")
+       width = 14,
+       height = 10,
+       dpi = "retina")
 
 
 # Plot 9 - Final Four Teams by Year ------------------------------------------------------------------
@@ -92,8 +108,16 @@ ggsave("SubSt3-plot8-comp-rating.png",
 # wrangle data into new tibble including only selected variables for all FF teams in the dataset
 # group by year to change x-axis of ggplot() from individual teams in the prev. plot to average of each tournament
 kenbart90 = kenbart1 %>%
-  select(YEAR, SEED, ROUND, comprank, colorpri, colorsec, logo) %>%
-  filter(ROUND < 5 & YEAR < 2025 | SEED == 1 & YEAR == 2025) %>%
+  select(YEAR,
+         SEED,
+         ROUND,
+         comprank,
+         colorpri,
+         colorsec,
+         logo) %>%
+  filter(ROUND < 5
+         & YEAR < 2025 | SEED == 1
+         & YEAR == 2025) %>%
   group_by(YEAR) %>%
   summarize(cumrank = mean(comprank)) %>%
   print(n = Inf)
@@ -112,22 +136,28 @@ plot90 = kenbart90 %>%
   labs(title = "Barttorvik + Kenpom Composite Power Rank",
        subtitle = "Final Four Groups | '08-'25 Tournaments",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
-       x = "YEAR", y = "COMPOSITE RANK") +
+       x = "YEAR",
+       y = "COMPOSITE RANK") +
   theme_minimal() +
   theme(plot.background = element_rect(fill = "white"),
         panel.grid.major.x = element_line(color = "white"),
         panel.grid.major.y = element_line(color = "grey"),
         plot.title = element_text(hjust = 0.5,
-                                  size = 24, face = "bold.italic"),
+                                  size = 24,
+                                  face = "bold.italic"),
         plot.subtitle = element_text(hjust = 0.5,
-                                     size = 22, face = "bold.italic"),
+                                     size = 22,
+                                     face = "bold.italic"),
         plot.caption = element_text(size = 12),
-        axis.title = element_text(size = 16, face = "bold"),
+        axis.title = element_text(size = 16,
+                                  face = "bold"),
         axis.text = element_text(size = 16))
 
 # view plot
 plot90
 
-# save the plot to the device's local files
+# save plot to local files
 ggsave("SS3-plot9-comp-rating-group.png",
-       width = 14, height = 10, dpi = "retina")
+       width = 14,
+       height = 10,
+       dpi = "retina")

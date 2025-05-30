@@ -1,6 +1,6 @@
 # load packages
-library(tidyverse)    # data wrangling
-library(ggrepel)      # replaces geom_text
+library(tidyverse)
+library(ggrepel)
 
 # load data
 kenbart1
@@ -24,7 +24,8 @@ kenbart2$logo[kenbart2$TEAM == "Duke" & kenbart2$YEAR == 2025] = "C:/Users/Nick 
 power2 = kenbart2 %>%
   mutate(pointcolor3 = ifelse(SEED == 1 & YEAR == 2025, "white", "darkgrey")) %>%
   ggplot(aes(x = BARTHAG, y = WAB)) +
-  geom_smooth(method = "lm", se = FALSE,
+  geom_smooth(method = "lm",
+              se = FALSE,
               color = "grey27") +
   geom_point(aes(color = pointcolor3),
              size = 2.5) +
@@ -37,15 +38,22 @@ power2 = kenbart2 %>%
   theme_minimal() +
   theme(legend.position = "none",
         plot.background = element_rect(fill = "white"),
-        plot.title = element_text(hjust = 0.5, size = 24, face = "bold.italic"),
-        plot.subtitle = element_text(hjust = 0.5, size = 21, face = "bold.italic"),
+        plot.title = element_text(hjust = 0.5,
+                                  size = 24,
+                                  face = "bold.italic"),
+        plot.subtitle = element_text(hjust = 0.5,
+                                     size = 21,
+                                     face = "bold.italic"),
         plot.caption = element_text(size = 11),
-        axis.title = element_text(size = 16, face = "bold"),
+        axis.title = element_text(size = 16,
+                                  face = "bold"),
         axis.text = element_text(size = 16))
 
 # view plot
 power2
 
-# save the plot to the device's local files
+# save plot to local files
 ggsave("SS3.3-barthag_wab_multi.png",
-       width = 14, height = 10, dpi = "retina")
+       width = 14,
+       height = 10,
+       dpi = "retina")

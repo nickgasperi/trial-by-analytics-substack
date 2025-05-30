@@ -1,6 +1,6 @@
 # load packages
-library(tidyverse)        # data wrangling
-library(ggimage)          # add images to ggplot
+library(tidyverse)
+library(ggimage)
 
 # load data
 kenbart1
@@ -30,7 +30,8 @@ kenbart1$colorpri[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "#003087"
 kenbart1$colorsec[kenbart1$TEAM == "Duke" & kenbart1$YEAR == 2025] = "#000000"
 
 # create density plot
-gamesplot = ggplot(data = kenbart1, aes(GAMES)) +
+gamesplot = ggplot(data = kenbart1,
+                   aes(GAMES)) +
   geom_density(aes(fill = "density"),
                kernel = "cosine",
                alpha = 0.3,
@@ -45,24 +46,33 @@ gamesplot = ggplot(data = kenbart1, aes(GAMES)) +
              linewidth = 0.75) +
   geom_image(image = kenbart1$logo,
              size = 0.055,
-             x = kenbart1$GAMES, y = ifelse(kenbart1$TEAM == "Auburn" | kenbart1$TEAM == "Duke", 0.01,
+             x = kenbart1$GAMES,
+             y = ifelse(kenbart1$TEAM == "Auburn" | kenbart1$TEAM == "Duke", 0.01,
                                             ifelse(kenbart1$TEAM == "Houston", 0.028,
                                                    ifelse(kenbart1$TEAM == "Florida", 0.043, 0)))) +
   labs(title = "Density of Pre-Tournament Games Played",
        subtitle = "'08-'25 Tournament Teams",
        caption = "By Nick Gasperi | @tbanalysis | Data @nishaanamin",
-       x = "GAMES", y = "DENSITY") +
+       x = "GAMES",
+       y = "DENSITY") +
   theme_minimal() +
   theme(plot.background = element_rect(fill = "white"),
-        plot.title = element_text(hjust = 0.5, size = 22, face = "bold.italic"),
-        plot.subtitle = element_text(hjust = 0.5, size = 20, face = "bold.italic"),
+        plot.title = element_text(hjust = 0.5,
+                                  size = 22,
+                                  face = "bold.italic"),
+        plot.subtitle = element_text(hjust = 0.5,
+                                     size = 20,
+                                     face = "bold.italic"),
         plot.caption = element_text(size = 10),
-        axis.title = element_text(size = 16, face = "bold"),
+        axis.title = element_text(size = 16,
+                                  face = "bold"),
         axis.text = element_text(size = 16))
 
 # view plot
 gamesplot
 
-# save the plot to the device's local files
+# save plot to local files
 ggsave("SS3-plot11-games-champs.png",
-       width = 12.5, height = 9, dpi = "retina")
+       width = 12.5,
+       height = 9,
+       dpi = "retina")
