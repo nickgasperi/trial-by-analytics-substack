@@ -8,7 +8,7 @@ library(gt)
 # load data from 2018-2024 NFL seasons
 nfldata2 = load_pbp(2018:2024)
 
-# filter data
+# wrangle data into new tibble
 chiefsgr = nfldata2 %>%
   filter(penalty_team == "KC",
          season_type == "REG") %>%
@@ -21,7 +21,7 @@ chiefsgr = nfldata2 %>%
 chiefsgr$nfl_avg_p = (c(108, 108, 90, 101, 95, 97, 110))
 chiefsgr$nfl_avg_y = (c(920, 917, 779, 867, 781, 801, 888))
 
-# add diff columns for both varibales
+# add diff columns for both variables
 chiefsgr$diff_pen = chiefsgr$penalties-chiefsgr$nfl_avg_p
 chiefsgr$diff_yds = chiefsgr$pen_yds-chiefsgr$nfl_avg_y
 
@@ -37,7 +37,6 @@ chiefsgr = chiefsgr %>%
   print(n = Inf)
 
 # create table
-# use md() to add bold with '**' and italics with '*'
 tblchiefsgr = gt(chiefsgr) %>%
   tab_header(title = md("**Penalties & Penalty Yards by Season**"),
              subtitle = md("**KC vs. NFL Averages**")) %>%

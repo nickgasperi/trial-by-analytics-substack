@@ -24,7 +24,8 @@ regpen1 = regpen %>%
   mutate(rankpenyd = row_number())
 
 # view updated table
-regpen1 %>% print(n = Inf)
+regpen1 %>%
+  print(n = Inf)
 
 # summarize regular season 4th Quarter penalty yards by team
 regpen4q = nfldata %>%
@@ -89,7 +90,7 @@ plotregpen5 = ggplot(data = allpenyd) +
 # view plot
 plotregpen5
 
-# save plot to device's local files
+# save plot to local files
 ggsave("X post 46 - reg_penyd.png",
        width = 10.5, height = 7,
        dpi = "retina")

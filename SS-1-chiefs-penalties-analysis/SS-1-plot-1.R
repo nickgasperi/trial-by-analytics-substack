@@ -7,6 +7,7 @@ library(nflreadr)
 # load data from 2018-2024 NFL seasons
 nfldata2 = load_pbp(2018:2024)
 
+# wrangle data into new tibble
 # summarize penalties and penalty yards by team in reg season games
 pendata1 = nfldata2 %>%
   filter(season_type == "REG",
@@ -18,7 +19,7 @@ pendata1 = nfldata2 %>%
   arrange(-penyd) %>%
   print(n = Inf)
 
-# plot data
+# plot penalties and penalties by team
 penplot1 = pendata1 %>%
   mutate(pencolor1 = ifelse(penalty_team == "KC", NA, "b/w")) %>%
   mutate(penwidth = ifelse(penalty_team == "KC", 0.065, 0.05)) %>%
@@ -27,7 +28,8 @@ penplot1 = pendata1 %>%
              linetype = "dashed") +
   geom_vline(xintercept = mean(pendata1$penalties),
              linetype = "dashed") +
-  geom_smooth(method = "lm", se = FALSE,
+  geom_smooth(method = "lm",
+              se = FALSE,
               color = "grey") +
   geom_nfl_logos(aes(team_abbr = penalty_team,
                      color = pencolor1,
@@ -53,7 +55,7 @@ penplot1 = pendata1 %>%
 # view plot
 penplot1
 
-# save plot to device's local files
+# save plot to local files
 ggsave("SubSt1.1 - reg_szn_pens.png",
        width = 10.5, height = 7,
        dpi = "retina")
