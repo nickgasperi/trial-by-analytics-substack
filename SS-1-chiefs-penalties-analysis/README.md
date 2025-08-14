@@ -1,2 +1,1 @@
-The 'Article1-Chiefs-Penalties' repository hosts all code and analysis used to create the first article on TBA's Substack publication (link below)
-
+## This folder contains all code used for the Substack post: [No, referees do not favor the Chiefs](https://tbanalysis.substack.com/p/no-referees-do-not-favor-the-chiefs)
