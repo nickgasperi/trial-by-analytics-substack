@@ -1,1 +1,1 @@
-## This folder contains all code used in the Substack post: [Super Bowl LIX Preview](https://tbanalysis.substack.com/p/super-bowl-lix-preview-revised)
+## This folder contains all code and images used in the Substack post: [Super Bowl LIX Preview](https://tbanalysis.substack.com/p/super-bowl-lix-preview-revised)
