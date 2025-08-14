@@ -1,1 +1,1 @@
-## This folder contains all code used in the Substack post: [No, referees do not favor the Chiefs](https://tbanalysis.substack.com/p/no-referees-do-not-favor-the-chiefs)
+## This folder contains all code and images used in the Substack post: [No, referees do not favor the Chiefs](https://tbanalysis.substack.com/p/no-referees-do-not-favor-the-chiefs)
