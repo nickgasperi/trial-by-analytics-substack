@@ -1,1 +1,1 @@
-## This folder contains all code and data used in the Substack post: [The Most Stacked Final Four Ever?]
+## This folder contains all code, data, and images used in the Substack post: [The Most Stacked Final Four Ever?]
