@@ -1,4 +1,4 @@
-# **Trial By Analytics on Substack: R Code**
+# **Trial By Analytics on Substack**
 
 This repository hosts the R code used to create each *Trial By Analytics* post on Substack.
 
