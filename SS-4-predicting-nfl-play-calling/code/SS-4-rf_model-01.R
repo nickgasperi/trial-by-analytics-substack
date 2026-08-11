@@ -280,10 +280,133 @@ team_results_summary = rf_test_results %>%
   summarize(n_plays = n(),
             n_correct = sum(actual == predicted),
             team_accuracy = mean(actual == predicted),
-            vs_league_avg = team_accuracy - league_accuracy)
+            vs_league_avg = team_accuracy - league_accuracy) %>%
+  arrange(-vs_league_avg)
 
-# view results table
-team_results_summary %>%
-  arrange(-vs_league_avg) %>%
+# export as csv to GitHub project location
+write.csv(team_results_summary,
+          "C:/Users/Nick Gasperi/Documents/GitHub/trial-by-analytics-substack/SS-4-predicting-nfl-play-calling/data/team_results_summary.csv",
+          row.names = FALSE)
+
+# Part 3 - Comp to Perf Stats -------------------------------------------------
+
+# calculate epa/play by team using same conditions as original 2025 testing data
+team_plot_data_a = nfldata %>%
+  filter(season_type == "REG",
+         season == 2025,
+         !is.na(epa),
+         !is.na(posteam),
+         play_type %in% c("run", "pass", "punt", "field_goal"),
+         qb_spike == 0,
+         qb_kneel == 0,
+         aborted_play == 0,
+         two_point_attempt == 0) %>%
+  group_by(posteam) %>%
+  summarize(plays = n(),
+            epa_play = sum(epa)/plays) %>%
+  select(-plays,
+         team = posteam) %>%
   print(n = Inf)
 
+# create data frame for all plotting
+team_plot_data_b = team_results_summary %>%
+  left_join(team_plot_data_a,
+            by = "team") %>%
+  select(team,
+         n_plays,
+         vs_league_avg,
+         epa_play) %>%
+  left_join(base_stats_2025_nfl_team,
+            by = "team") %>%
+  print(n = Inf)
+
+# plot data
+pred_wins_plot = ggplot(data = team_plot_data_b,
+                        aes(x = wins,
+                            y = vs_league_avg)) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  scale_x_continuous(breaks = seq(0, 14, by = 2)) +
+  geom_hline(yintercept = mean(team_plot_data_b$vs_league_avg),
+             linetype = "dashed",
+             color = "grey20",
+             alpha = 0.60) +
+  geom_vline(xintercept = mean(team_plot_data_b$wins),
+             linetype = "dashed",
+             color = "grey20",
+             alpha = 0.60) +
+  geom_point() +
+  geom_label(aes(label = team)) +
+  labs(title = "Team Predictability Rating vs. Wins",
+       subtitle = "2025 NFL Regular Season",
+       x = "Wins",
+       y = "Predictability Rating") +
+  theme_minimal()
+
+# view plot
+pred_wins_plot
+
+# save plot to local files
+ggsave("SS-4.3-predictability-wins-plot.png",
+       width= 10.5, height = 7,
+       dpi = "retina")
+
+
+# plot data
+pred_ppg_plot = ggplot(data = team_plot_data_b,
+                        aes(x = ppg,
+                            y = vs_league_avg)) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  geom_hline(yintercept = mean(team_plot_data_b$vs_league_avg),
+             linetype = "dashed",
+             color = "grey20",
+             alpha = 0.60) +
+  geom_vline(xintercept = mean(team_plot_data_b$ppg),
+             linetype = "dashed",
+             color = "grey20",
+             alpha = 0.60) +
+  geom_point() +
+  geom_label(aes(label = team)) +
+  labs(title = "PPG vs. Team Predictability Rating",
+       subtitle = "2025 NFL Regular Season",
+       x = "Points Per Game",
+       y = "Predictability Rating") +
+  theme_minimal()
+
+# view plot
+pred_ppg_plot
+# save plot to local files
+ggsave("SS-4.4-predictability-ppg-plot.png",
+       width= 10.5, height = 7,
+       dpi = "retina")
+
+# plot data
+pred_epa_plot = ggplot(data = team_plot_data_b,
+                        aes(x = epa_play,
+                            y = vs_league_avg)) +
+  geom_smooth(method = "lm",
+              se = FALSE) +
+  geom_hline(yintercept = mean(team_plot_data_b$vs_league_avg),
+             linetype = "dashed",
+             color = "grey20",
+             alpha = 0.60) +
+  geom_vline(xintercept = mean(team_plot_data_b$epa_play),
+             linetype = "dashed",
+             color = "grey20",
+             alpha = 0.60) +
+  geom_point() +
+  geom_label(aes(label = team)) +
+  labs(title = "EPA Per Play vs. Team Predictability Rating",
+       subtitle = "2025 NFL Regular Season",
+       x = "EPA/Play",
+       y = "Predictability Rating") +
+  theme_minimal()
+
+# view plot
+pred_epa_plot
+
+# save plot to local files
+ggsave("SS-4.5-predictability-epa-plot.png",
+       width= 10.5, height = 7,
+       dpi = "retina")

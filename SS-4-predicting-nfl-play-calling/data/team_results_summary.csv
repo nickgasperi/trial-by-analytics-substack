@@ -1,4 +1,4 @@
-"team","n_plays","n_correct","team_accuracy","vs_league_avg"
+"team","n_plays","n_correct","team_accuracy","relative_pred"
 "HOU",1193,932,0.781223805532272,0.040923377548272
 "MIN",1034,806,0.779497098646035,0.0391966706620352
 "CLE",1143,885,0.774278215223097,0.0339777872390976
