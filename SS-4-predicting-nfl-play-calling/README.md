@@ -1,0 +1,1 @@
+## This folder contains all code, data, and images used in the Substack post: [Predicting NFL Play Calling with Random Forest Classification]().
