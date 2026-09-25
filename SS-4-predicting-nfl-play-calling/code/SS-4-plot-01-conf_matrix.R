@@ -2,6 +2,7 @@
 library(tidyverse)
 library(nflfastR)
 library(nflreadr)
+library(nflplotR)
 
 # plot confusion matrix as heat map using geom_tile()
 conf_heat_map = ggplot(data = conf_matrix_plot_d,

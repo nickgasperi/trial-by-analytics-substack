@@ -2,6 +2,7 @@
 library(tidyverse)
 library(randomForest)
 library(ranger)
+library(caret)
 library(nflfastR)
 library(nflreadr)
 
@@ -13,8 +14,8 @@ library(nflreadr)
 # load 2018-2025 NFL play-by-play data
 nfldata = load_pbp(2018:2025)
 
-# create new dataset that filters data to include independent and dependent variables, plus posteam (used later in the project)
-# include only regular season data
+# filter to regular season plays and select dependent/independent variables
+# posteam is retained for team-level analysis later in the project
 all_model_data = nfldata %>%
   filter(season_type == "REG",
          play_type %in% c("run", "pass", "punt", "field_goal"),
@@ -42,8 +43,9 @@ all_model_data$goal_to_go = as.factor(all_model_data$goal_to_go)
 all_model_data$game_half = as.factor(all_model_data$game_half)
 all_model_data$shotgun = as.factor(all_model_data$shotgun)
 
-# create two subsets of the dataset - one for training and one for testing
-# drop the season variable after creating each new dataset, as it is only used to in this step and not included in the model
+# split into training (2018-2024) and testing (2025) datasets
+# season is dropped after filtering, as it is not used in the model
+# posteam is dropped from training only, since team identity should not be a predictor
 training_data = all_model_data %>%
   filter(season %in% c(2018:2024)) %>%
   select(-season, -posteam)
@@ -57,7 +59,6 @@ training_data %>%
   filter(is.na(play_type))
 
 # check for null values in independent variables
-# first, define column names of IVs
 predictors = c("play_type",
                "down",
                "ydstogo",
@@ -69,12 +70,11 @@ predictors = c("play_type",
                "game_half",
                "shotgun")
 
-# sum null values within each independent variable
 sort(colSums(is.na(training_data[, predictors])),
      decreasing = TRUE)
 
-# just one null value present - go into that game's pbp data to investigate
-# copying the original dataset, but adding play_id and game_id to locate which game the null value is in
+# one null value found in 'down' - locate the game to investigate context
+# rebuild the filtered dataset with play_id/game_id added for lookup purposes
 training_data_b = nfldata %>%
   filter(season_type == "REG",
          season %in% c(2018:2024),
@@ -99,7 +99,7 @@ training_data_b = nfldata %>%
   filter(is.na(down)) %>%
   print(n = Inf)
 
-# call the same dataset, but change the final filter to include all plays from the game to get context
+# call the same dataset, but change the final filter to include all plays from the game for full context
 training_data_b = nfldata %>%
   filter(season_type == "REG",
          season %in% c(2018:2024),
@@ -125,17 +125,17 @@ training_data_b = nfldata %>%
   arrange(play_id) %>%
   print(n = Inf)
 
-# the field goal attempt was the last play of the half, following a punt from the opponent
-# down is unclear so it will be omitted from the training dataset
+# the field goal attempt was the final play of the half, following a punt from the opponent
+# down is ambiguous in this context, so the row is dropped from the training dataset
 dv_cols = setdiff(predictors, "play_type")
 
 training_data_c = training_data %>%
   drop_na(all_of(dv_cols))
 
-# check row count in new tibble to make sure only one column was dropped
+# check row count in new tibble to confirm only one column was dropped
 nrow(training_data)-nrow(training_data_c)
 
-# generate tibbles to summarize play_type counts in training and testing data sets
+# summarize play_type counts in training and testing datasets
 training_data_c %>%
   summarize(plays = n(),
             pass = sum(play_type == "pass"),
@@ -150,7 +150,7 @@ testing_data %>%
             punt = sum(play_type == "punt"),
             fg_att = sum(play_type == "field_goal"))
 
-# calculate baseline assumptions (proportion of each play_type) in testing data
+# calculate naive baseline (proportion of each play_type) in the 2025 testing data
 testing_data %>%
   summarize(plays = n(),
             pass = sum(play_type == "pass")/plays,
@@ -161,13 +161,13 @@ testing_data %>%
 
 #             ---- Model Training ----
 
-# run model with training data
+# train random forest model
 rf_model_train = randomForest(play_type ~.,
                              ntree = 500,
                              data = training_data_c,
                              importance = TRUE)
 
-# load model results
+# view training results (OOB error, confusion matrix)
 rf_model_train
 
 # generate variable importance plot
@@ -178,32 +178,30 @@ varImpPlot(rf_model_train,
 
 #             ---- Model Testing & Results ----
 
-
-# run model with league-wide 2025 testing data
+# generate predictions using 2025 testing data (posteam excluded as a predictor)
 pred_test_league = predict(rf_model_train,
                            newdata = testing_data %>% select(-posteam))
 
-# calculate overall model accuracy
-league_accuracy = mean(pred_test_league == testing_data$play_type)
-
-# Generate Confusion Matrix
-# create as table
+# build confusion matrix (predicted vs. actual)
 conf_matrix_a = table(predicted = pred_test_league,
                       actual = testing_data$play_type)
 
-# convert matrix values to proportion of actual plays correctly classified within each play_type (recall)
-# use 'margin = 2' to group by column & round to one decimal place
+# convert matrix values to % of actual plays correctly classified within each play_type (recall)
+# margin = 2 normalizes by column (actual play type)
 conf_matrix_plot_a = round((prop.table(conf_matrix_a,
                                 margin = 2)),
                            digits = 3)
-# view updated matrix
+
 print(conf_matrix_plot_a)
 
-# convert conf. matrix from a table to dataframe
+# convert confusion matrix to a dataframe for use in ggplot
 conf_matrix_plot_d = as.data.frame(conf_matrix_plot_a)
 
-# convert proportionate values to % format
+# convert proportions to percentage format
 conf_matrix_plot_d$Freq = conf_matrix_plot_d$Freq * 100
 
-# view updated table
-conf_matrix_plot_d
+conf_matrix_plot_d      # dataframe ready to plot
+
+# generate summary table
+confusionMatrix(pred_test_league, testing_data$play_type)
+
