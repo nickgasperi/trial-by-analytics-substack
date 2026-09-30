@@ -23,6 +23,8 @@ conf_heat_map = ggplot(data = conf_matrix_plot_d,
        y = "Actual") +
   theme_minimal() +
   theme(legend.position = "none",
+        plot.background = element_rect(fill = "white",
+                                       color = NA),
         plot.title = element_text(hjust = 0.5,
                                   size = 20,
                                   face = "bold"),
