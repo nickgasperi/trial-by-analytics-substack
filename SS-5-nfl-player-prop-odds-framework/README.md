@@ -1,0 +1,1 @@
+## This folder contains all code, data, and images used in the Substack post: [A Data-Driven Framework for Evaluating NFL Player Prop Odds](https://tbanalysis.substack.com/p/a-data-driven-framework-for-evaluating).
